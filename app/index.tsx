@@ -12,19 +12,19 @@ const Welcome = (props: Props) => {
 
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme)
-  console.log("theme", theme.isWelcomeScreen);
 
   const getTheme = async () => {
     const themes = await LocalStorage.get("theme");
-    const parsedThemes = JSON.parse(themes as string) ?? {
-      language: "",
-      mode: "",
-      isWelcomeScreen: false,
-    };
+    const parsedThemes = themes
+      ? JSON.parse(themes as string)
+      : {
+        language: "",
+        mode: "",
+        isWelcomeScreen: false,
+      };
     dispatch(changeUserSlice({ state: "theme", data: parsedThemes }));
   };
-
-  useEffect(() => { getTheme() }, []);
+  useEffect(() => { getTheme() }, [dispatch]);
 
   if (theme.isWelcomeScreen) {
     return <Redirect href={"/auth/login"} />

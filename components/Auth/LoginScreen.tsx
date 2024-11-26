@@ -16,7 +16,6 @@ export default function LoginScreen() {
       if (data.access_token) {
         router.push("/home")
       }
-      console.log("data", data);
 
     } catch (error) {
       console.log(error, "error");

@@ -7,7 +7,7 @@ const GetMyInformation = async () => {
     return res;
     // return res;
   } catch (error: any) {
-    Alert.alert(error.response.data.message);
+    // Alert.alert(error.response.data.message);
   }
 };
 

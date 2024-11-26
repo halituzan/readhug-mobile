@@ -1,5 +1,5 @@
 import { Alert } from "react-native";
-import network from "@/lib/network";
+import network from "@/connections/network";
 import LocalStorage from "@/connections/LocalStorage";
 
 const Login = async (payload: { email: string; password: string }) => {

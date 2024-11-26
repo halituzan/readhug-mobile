@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeThemeSlice } from "@/store/features/userSlice";
 import Colors from "@/constants/Colors";
@@ -24,7 +24,7 @@ export default function WelcomeScreen() {
             id: "1",
             content: (
                 <View style={styles.slide}>
-                    <Text style={styles.title}>Welcome to the Book App!</Text>
+                    <Image source={require("../assets/images/logo.png")} style={styles.logo} />
                     <Text style={styles.subtitle}>Discover, read, and track your favorite books.</Text>
                 </View>
             ),
@@ -125,6 +125,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#25292e",
 
+    },
+    logo: {
+        width: 100,
+        height: 90,
+        marginBottom: 20,
     },
     slide: {
         width: "100%",

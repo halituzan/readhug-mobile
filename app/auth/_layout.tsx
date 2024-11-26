@@ -10,8 +10,6 @@ export default function AuthLayout() {
             },
             headerShadowVisible: false,
             headerTintColor: '#fff',
-
-
         }}>
             <Stack.Screen name="login" options={{ title: 'Login', }} />
             <Tabs.Screen name="register" options={{ title: 'Register', }} />

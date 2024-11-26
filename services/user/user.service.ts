@@ -1,10 +1,10 @@
 import { Alert } from "react-native";
-import Network from "@/lib/network";
+import network from "@/lib/network";
 
 const GetMyInformation = async () => {
   try {
-    // const res = await Network.get("user/me");
-    return { data: {}, login: true };
+    const res = await network.run("GET", "user/me", null);
+    return res;
     // return res;
   } catch (error: any) {
     Alert.alert(error.response.data.message);

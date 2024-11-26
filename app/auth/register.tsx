@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { Fragment } from "react";
 import RegisterScreen from "@/components/Auth/RegisterScreen";
+import React, { Fragment } from "react";
 
 type Props = {};
 
@@ -14,4 +13,3 @@ const register = (props: Props) => {
 
 export default register;
 
-const styles = StyleSheet.create({});

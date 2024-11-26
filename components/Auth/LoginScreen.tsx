@@ -1,26 +1,35 @@
 import Colors from "@/constants/Colors";
-import { Link } from "expo-router";
+import { Login } from "@/services/auth/login.service";
+import { Link, Redirect, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("halit.uzan@gmail.com");
+  const [password, setPassword] = useState("123456789c!");
+  const router = useRouter()
 
-  const handleLogin = () => {
-    console.log("Login Attempt:", { email, password });
+  const handleLogin = async () => {
+    try {
+      const data: any = await Login({ email, password })
+
+      if (data.access_token) {
+        router.push("/home")
+      }
+      console.log("data", data);
+
+    } catch (error) {
+      console.log(error, "error");
+
+    }
   };
 
   return (
     <View style={styles.container}>
-      {/* Logo */}
       <Image source={require("../../assets/images/logo.png")} style={styles.logo} />
 
-      {/* Title */}
       <Text style={styles.title}>Welcome Back!</Text>
       <Text style={styles.subtitle}>Login to continue</Text>
-
-      {/* Input Fields */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -39,13 +48,10 @@ export default function LoginScreen() {
           onChangeText={setPassword}
         />
       </View>
-
-      {/* Forgot Password */}
       <TouchableOpacity style={styles.forgotPassword}>
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      {/* Login Button */}
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>

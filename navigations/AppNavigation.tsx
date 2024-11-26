@@ -34,6 +34,8 @@ const AppNavigation = (props: Props) => {
       if (token) {
         try {
           const res = await GetMyInformation();
+          console.log("resssssssssss", res);
+
           dispatch(changeUserSlice({ state: "login", data: true }));
           dispatch(changeUserSlice({ state: "info", data: res?.data }));
         } catch (err) {
@@ -70,10 +72,11 @@ const AppNavigation = (props: Props) => {
   if (!theme.isWelcomeScreen) {
     return <Redirect href={"/"} />;
   }
+  console.log("login", login);
 
   return (
     <Fragment>
-      {!login ? (
+      {login ? (
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name='home' options={{ headerShown: false }} />
           <Stack.Screen name='+not-found' />

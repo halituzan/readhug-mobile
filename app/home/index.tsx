@@ -3,64 +3,36 @@ import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import Post from "@/components/ui/PostCard";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { GetAllBooks } from "@/services/book/getAllBook";
 
 export default function Index() {
   const [posts, setPosts] = useState<any>([
-    {
-      author: "J.D. Salinger",
-      bookTitle: "To Kill a Mockingbird",
-      comments: 4,
-      content:
-        "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-      id: "post-2008836-0",
-      likes: 47,
-      timestamp: "11/27/2024, 01:58:41",
-      image: "book1",
-    },
-    {
-      author: "J.D. Salinger",
-      bookTitle: "To Kill a Mockingbird",
-      comments: 4,
-      content:
-        "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-      id: "post-2008836-1",
-      likes: 47,
-      timestamp: "11/27/2024, 01:58:41",
-      image: "book2",
-    },
-    {
-      author: "J.D. Salinger",
-      bookTitle: "To Kill a Mockingbird",
-      comments: 4,
-      content:
-        "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-      id: "post-2008836-2",
-      likes: 47,
-      timestamp: "11/27/2024, 01:58:41",
-      image: "book3",
-    },
+
   ]);
+  const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const fetchMorePosts = () => {
-  //   const newPosts = generateRandomPosts(1);
-  //   console.log(newPosts);
 
-  //   setPosts((prevPosts: any) => [...prevPosts, ...newPosts]);
-  // };
-  // useEffect(() => {
-  //   fetchMorePosts();
-  // }, []);
+  const fetchMorePosts = async () => {
+    const newPosts = await GetAllBooks(page);
+    // console.log(newPosts);
+
+    setPosts((prevPosts: any) => [...prevPosts, ...newPosts.data]);
+    setPage((prev) => prev + 1)
+  };
+  useEffect(() => {
+    fetchMorePosts();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        style={{ paddingVertical: 30}}
+        style={{ paddingVertical: 30 }}
         data={posts}
         keyExtractor={(item: any) => item?.id}
-        renderItem={({ item }) => <Post post={item} />}
-        // onEndReached={fetchMorePosts}
+        renderItem={({ item }:any) => <Post post={item} />}
+        onEndReached={fetchMorePosts}
         onEndReachedThreshold={0.5}
-        // ListFooterComponent={isLoading && <View style={styles.loadingIndicator} />}
+      // ListFooterComponent={isLoading && <View style={styles.loadingIndicator} />}
       />
     </SafeAreaView>
   );

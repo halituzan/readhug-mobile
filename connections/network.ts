@@ -19,6 +19,7 @@ const network = class NETWORK {
     };
 
     const token = await LocalStorage.get("token"); // Async işlem
+    console.log("token", token);
 
     if (token) {
       options.headers = { authorization: `Bearer ${token}` };

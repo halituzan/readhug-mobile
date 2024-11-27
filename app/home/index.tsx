@@ -1,35 +1,36 @@
-import { Text, View, StyleSheet, FlatList } from "react-native";
-import { Link } from "expo-router";
-import { useEffect, useState } from "react";
 import Post from "@/components/ui/PostCard";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { GetAllBooks } from "@/services/book/getAllBook";
-
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import "../../global.css"
 export default function Index() {
   const [posts, setPosts] = useState<any>([
 
   ]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
 
   const fetchMorePosts = async () => {
     const newPosts = await GetAllBooks(page);
-    // console.log(newPosts);
 
     setPosts((prevPosts: any) => [...prevPosts, ...newPosts.data]);
-    setPage((prev) => prev + 1)
+    if (newPosts.data.length > 0) {
+      setPage((prev) => prev + 1)
+    }
+
   };
   useEffect(() => {
     fetchMorePosts();
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} className="bg-red-400">
       <FlatList
         style={{ paddingVertical: 30 }}
         data={posts}
         keyExtractor={(item: any) => item?.id}
-        renderItem={({ item }:any) => <Post post={item} />}
+        renderItem={({ item }: any) => <Post post={item} />}
         onEndReached={fetchMorePosts}
         onEndReachedThreshold={0.5}
       // ListFooterComponent={isLoading && <View style={styles.loadingIndicator} />}
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#25292e",
+    // backgroundColor: "#25292e",
   },
   loadingIndicator: {
     padding: 16,

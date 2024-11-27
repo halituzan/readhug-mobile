@@ -7,13 +7,14 @@ import Comment from './Icons/Comment';
 import CommentCard from './CommentCard';
 import { Input } from './Input';
 import { Dispatch } from '@reduxjs/toolkit';
+import { cn } from '@/lib/utils';
 
 const Post = ({ post }: any) => {
 
     const [openMessage, setOpenMessage] = useState(false);
     const [newComment, setNewComment] = useState<string>("");
     return (
-        <View style={styles.container}>
+        <View style={styles.container} className={cn("border-2 border-primary")}>
             <View style={styles.header}>
                 <Image source={{ uri: post?.book?.bookId?.images?.thumbnail }} style={styles.bookImage} />
                 <View style={{

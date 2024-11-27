@@ -5,7 +5,7 @@ const GetAllBooks = async (page: number = 0) => {
   try {
     const res = await network.run(
       "GET",
-      "/posts/all?page=1&limit=10&sort=desc",
+      `/posts/all?page=${page}&limit=10&sort=desc`,
       null
     );
     return res;

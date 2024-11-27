@@ -38,8 +38,6 @@ const AppNavigation: React.FC = (props: Props) => {
     setIsLoading(true);
 
     const token = await LocalStorage.get("token");
-    console.log("token", token);
-
     if (!token) {
       dispatch(changeUserSlice({ state: "login", data: false }));
       dispatch(changeUserSlice({ state: "info", data: {} }));
@@ -84,7 +82,6 @@ const AppNavigation: React.FC = (props: Props) => {
       </View>
     );
   }
-  console.log("theme", theme);
 
   if (!theme.isWelcomeScreen) {
     <Redirect href={"/"} />

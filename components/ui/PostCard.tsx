@@ -1,4 +1,4 @@
-// components/Post.js
+// components/PostCard.tsx
 import React, { SetStateAction, useState } from 'react';
 import { View, Text, StyleSheet, Image, Pressable, FlatList } from 'react-native';
 import UIText from './UIText';

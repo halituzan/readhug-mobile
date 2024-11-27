@@ -7,7 +7,6 @@ import { formatDate } from "@/lib/formatDate";
 type Props = { comment: any };
 
 const CommentCard = ({ comment }: Props) => {
-  console.log("comment", comment);
 
   return (
     <View style={styles.container}>

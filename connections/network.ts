@@ -6,7 +6,7 @@ const network = class NETWORK {
 
   constructor(axios: { create: (arg0: { baseURL: string }) => any }) {
     this.network = axios.create({
-      baseURL: "http://192.168.111.6:4000/",
+      baseURL: "http://192.168.111.2:4000/",
     });
   }
 

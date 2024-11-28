@@ -5,6 +5,7 @@ import { changeThemeSlice } from "@/store/features/userSlice";
 import Colors from "@/constants/Colors";
 import LocalStorage from "@/connections/LocalStorage";
 import { useRouter } from "expo-router";
+import { setTheme, setLanguage as setterLanguage, setWelcomeScreen } from "@/store/features/themeSlice";
 
 export default function WelcomeScreen() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,9 +14,11 @@ export default function WelcomeScreen() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleContinue = () => {
-        LocalStorage.set("theme", JSON.stringify({ mode: themeMode, language, isWelcomeScreen: true }))
-        dispatch(changeThemeSlice({ mode: themeMode, language, isWelcomeScreen: true }));
+    const handleContinue = async () => {
+        await LocalStorage.set("theme", JSON.stringify({ mode: themeMode, language, isWelcomeScreen: false }))
+        dispatch(setTheme(themeMode as "light" | "dark"));
+        dispatch(setterLanguage(language as "tr" | "en"));
+        dispatch(setWelcomeScreen(false))
         router.push("/auth/login")
     };
 

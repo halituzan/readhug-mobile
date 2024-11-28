@@ -2,20 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface InitialProps {
   login: boolean;
   info: Object;
-  theme: {
-    language: string;
-    mode: string;
-    isWelcomeScreen: boolean;
-  };
 }
 const initialState: InitialProps = {
   login: false,
   info: {},
-  theme: {
-    language: "",
-    mode: "",
-    isWelcomeScreen: false,
-  },
 };
 
 const reducers = {
@@ -38,6 +28,5 @@ const slice = createSlice({
 export const { changeUserSlice, changeThemeSlice } = slice.actions;
 export const selectUserLogin = (state: any) => state.user.login;
 export const selectUser = (state: any) => state.user.info;
-export const selectTheme = (state: any) => state.user.theme;
 
 export default slice.reducer;

@@ -1,32 +1,43 @@
 import WelcomeScreen from "@/components/WelcomeScreen";
 import LocalStorage from "@/connections/LocalStorage";
-import { changeUserSlice, selectTheme, selectUserLogin } from "@/store/features/userSlice";
+import { setLanguage, setTheme, setWelcomeScreen } from "@/store/features/themeSlice";
 import { Redirect } from "expo-router";
-import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {};
-
-const Welcome = (props: Props) => {
-
+const Welcome = () => {
   const dispatch = useDispatch();
-  const theme = useSelector(selectTheme)
+  const [welcome, setWelcome] = useState<any>(false);
 
   const getTheme = async () => {
-    const themes = await LocalStorage.get("theme");
-    const parsedThemes = themes
-      ? JSON.parse(themes as string)
-      : {
-        language: "",
-        mode: "",
-        isWelcomeScreen: false,
-      };
-    dispatch(changeUserSlice({ state: "theme", data: parsedThemes }));
-  };
-  useEffect(() => { getTheme() }, [dispatch]);
+    try {
+      const themes = await LocalStorage.get("theme");
+      console.log("themes", themes);
+      
 
-  if (theme.isWelcomeScreen) {
+      if (!themes) {
+        dispatch(setTheme("light"));
+        dispatch(setLanguage("tr"));
+        dispatch(setWelcomeScreen(true)); // Varsayılan olarak true
+        setWelcome(true)
+        return;
+      }
+      const parsedThemes = JSON.parse(themes as string);
+      setWelcome(parsedThemes.isWelcomeScreen)
+      dispatch(setTheme(parsedThemes?.mode ?? "light"));
+      dispatch(setLanguage(parsedThemes?.language ?? "tr"));
+      dispatch(setWelcomeScreen(parsedThemes?.isWelcomeScreen ?? false));
+    } catch (error) {
+      setWelcome(true)
+      dispatch(setTheme("light"));
+      dispatch(setLanguage("tr"));
+      dispatch(setWelcomeScreen(true));
+    }
+  };
+
+  useEffect(() => { getTheme() }, []);
+
+  if (!welcome) {
     return <Redirect href={"/auth/login"} />
   }
 
@@ -36,5 +47,3 @@ const Welcome = (props: Props) => {
 };
 
 export default Welcome;
-
-const styles = StyleSheet.create({});

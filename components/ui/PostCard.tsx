@@ -1,20 +1,19 @@
 // components/PostCard.tsx
-import React, { SetStateAction, useState } from 'react';
-import { View, Text, StyleSheet, Image, Pressable, FlatList } from 'react-native';
-import UIText from './UIText';
-import Heart from './Icons/Heart';
-import Comment from './Icons/Comment';
+import React, { useState } from 'react';
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import CommentCard from './CommentCard';
+import Comment from './Icons/Comment';
+import Heart from './Icons/Heart';
 import { Input } from './Input';
-import { Dispatch } from '@reduxjs/toolkit';
-import { cn } from '@/lib/utils';
+import UIText from './UIText';
+import { GlobalStyles } from '@/constants/Theme';
 
 const Post = ({ post }: any) => {
 
     const [openMessage, setOpenMessage] = useState(false);
     const [newComment, setNewComment] = useState<string>("");
     return (
-        <View style={styles.container} className={cn("border-2 border-primary")}>
+        <View style={GlobalStyles.Card} >
             <View style={styles.header}>
                 <Image source={{ uri: post?.book?.bookId?.images?.thumbnail }} style={styles.bookImage} />
                 <View style={{
@@ -31,7 +30,9 @@ const Post = ({ post }: any) => {
                 </View>
 
             </View>
-            <UIText text={post.content} />
+            <View style={styles.content}>
+                <Text>{post.content}</Text>
+            </View>
             <View style={styles.footer}>
                 <View style={styles.interactionContainer}>
                     <Heart />

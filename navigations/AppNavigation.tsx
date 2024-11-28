@@ -6,11 +6,11 @@ import LocalStorage from "@/connections/LocalStorage";
 import { GetMyInformation } from "@/services/user/user.service";
 import {
   changeUserSlice,
-  selectTheme,
   selectUserLogin,
 } from "@/store/features/userSlice";
-import { Text, View } from "react-native";
+import { Appearance, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { loadThemeFromStorage, selectTheme } from "@/store/features/themeSlice";
 
 type Props = {};
 
@@ -68,6 +68,14 @@ const AppNavigation: React.FC = (props: Props) => {
       getTheme();
       checkLogin();
     })();
+    const loadTheme = async () => {
+      const savedTheme = await LocalStorage.get("theme");
+      if (savedTheme) {
+        dispatch(loadThemeFromStorage(JSON.parse(savedTheme)));
+      }
+    };
+
+    loadTheme();
   }, []);
 
   if (isLoading) {

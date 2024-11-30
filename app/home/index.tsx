@@ -1,10 +1,9 @@
 import Post from "@/components/ui/PostCard";
 import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
 import { useTheme } from "@/hooks/useTheme";
 import { GetAllBooks } from "@/services/book/getAllBook";
 import { useEffect, useState } from "react";
-import { Dimensions, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 

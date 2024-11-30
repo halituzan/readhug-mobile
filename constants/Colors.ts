@@ -10,14 +10,10 @@ export default {
     contrastText: "#18181b",
     background: "#fafafa",
     tint: tintColorLight,
-    tabIconDefault: "#18181b",
-    tabIconSelected: tintColorLight,
   },
   dark: {
     contrastText: "#fafafa",
-    background: "#18181b",
+    background: "#25292e",
     tint: tintColorDark,
-    tabIconDefault: "#fafafa",
-    tabIconSelected: tintColorDark,
   },
 };

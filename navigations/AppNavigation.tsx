@@ -1,16 +1,16 @@
 //navigation/AppNavigation.tsx
-import { Redirect, Stack, useRouter } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import React, { Fragment, useEffect, useState } from "react";
 
 import LocalStorage from "@/connections/LocalStorage";
+import Colors from "@/constants/Colors";
 import { GetMyInformation } from "@/services/user/user.service";
-import {
-  changeUserSlice,
-  selectUserLogin,
-} from "@/store/features/userSlice";
-import { Appearance, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import { loadThemeFromStorage, selectTheme } from "@/store/features/themeSlice";
+import { changeUserSlice, selectUserLogin } from "@/store/features/userSlice";
+import { StatusBar, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "@/hooks/useTheme";
+import Loading from "@/components/ui/Loading";
 
 type Props = {};
 
@@ -18,19 +18,18 @@ const AppNavigation: React.FC = (props: Props) => {
   const dispatch = useDispatch();
   const login = useSelector(selectUserLogin);
   const theme = useSelector(selectTheme);
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  console.log("theme", theme);
 
   const getTheme = async () => {
     const themes = await LocalStorage.get("theme");
     const parsedThemes = themes
       ? JSON.parse(themes as string)
       : {
-        language: "",
-        mode: "",
-        isWelcomeScreen: false,
-      };
+          language: "",
+          mode: "",
+          isWelcomeScreen: false,
+        };
     dispatch(changeUserSlice({ state: "theme", data: parsedThemes }));
   };
 
@@ -79,24 +78,22 @@ const AppNavigation: React.FC = (props: Props) => {
   }, []);
 
   if (isLoading) {
-    return (
-      <View>
-        <Text style={{ color: "white" }}>Loading</Text>
-        <Text style={{ color: "white" }}>Loading</Text>
-        <Text style={{ color: "white" }}>Loading</Text>
-        <Text style={{ color: "white" }}>Loading</Text>
-        <Text style={{ color: "white" }}>Loading</Text>
-        <Text style={{ color: "white" }}>Loading</Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   if (!theme.isWelcomeScreen) {
-    <Redirect href={"/"} />
+    <Redirect href={"/"} />;
   }
-
+  const STYLES = ["default", "dark-content", "light-content"] as const;
   return (
     <Fragment>
+      <StatusBar
+        animated={true}
+        backgroundColor={Colors.colors.primary}
+        barStyle={
+          theme == "dark" ? STYLES[2] : theme == "light" ? STYLES[1] : STYLES[0]
+        }
+      />
       {login ? (
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name='home' options={{ headerShown: false }} />

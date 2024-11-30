@@ -4,43 +4,33 @@ import NotificationIcon from "@/components/ui/Icons/NotificationIcon";
 import Settings from "@/components/ui/Icons/Settings";
 import TimeLine from "@/components/ui/Icons/TimeLine";
 import Colors from "@/constants/Colors";
+import { GlobalStyles } from "@/constants/Theme";
 import { useTheme } from "@/hooks/useTheme";
+import { selectUser } from "@/store/features/userSlice";
 import { Tabs } from "expo-router";
 import React from "react";
-import {
-  Image,
-  Platform,
-  Pressable,
-  TouchableOpacity,
-  ViewStyle,
-} from "react-native";
+import { Image, Platform, Pressable, ViewStyle } from "react-native";
+import { useSelector } from "react-redux";
 
 export default function TabLayout(props: any) {
   const { theme } = useTheme();
+  const user = useSelector(selectUser);
+  console.log("user", user);
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          borderRadius: 20,
-          borderWidth: 0,
-          borderColor: "transparent",
-          padding: 0,
-          marginHorizontal: 15,
-          position: "absolute",
-          bottom: Platform.OS == "ios" ? 40 : 30,
-          zIndex: 10,
-          elevation: 5,
-          flex: 1,
-          height: 50,
-          backgroundColor: Colors[theme.mode].background,
-          //backgroundColor: "red",
-        },
+        tabBarStyle: [
+          tabStyles,
+          {
+            backgroundColor: Colors[theme.mode].background,
+            shadowColor: Colors[theme.mode].contrastText,
+            shadowOffset: { width: 0, height: 0 } as ViewStyle,
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
+          } as ViewStyle,
+        ],
         tabBarHideOnKeyboard: true,
       }}
     >
@@ -92,7 +82,11 @@ export default function TabLayout(props: any) {
             >
               <ProfileBarButton onPress={onPress} Colors={Colors} theme={theme}>
                 <Image
-                  source={require("../../assets/placeholder/books/book1.jpg")}
+                  source={
+                    user.image
+                      ? { uri: user.image }
+                      : require("../../assets/placeholder/books/book1.jpg")
+                  }
                   style={{
                     width: 60,
                     height: 60,
@@ -159,3 +153,22 @@ const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
     {children}
   </Pressable>
 );
+
+const tabStyles = {
+  ...GlobalStyles.Shadow,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+  borderRadius: 20,
+  borderWidth: 0,
+  borderColor: "transparent",
+  padding: 0,
+  marginHorizontal: 15,
+  position: "absolute",
+  bottom: Platform.OS == "ios" ? 40 : 30,
+  zIndex: 10,
+  elevation: 5,
+  flex: 1,
+  height: 50,
+} as ViewStyle;

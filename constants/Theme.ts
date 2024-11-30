@@ -41,6 +41,7 @@ export const GlobalStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   } as ViewStyle,
   flexVerticalBetween: {
     display: "flex",
@@ -90,5 +91,11 @@ export const GlobalStyles = {
     shadowOffset: { width: 0, height: 2 } as ViewStyle,
     shadowOpacity: 0.1,
     shadowRadius: 4,
+  } as ViewStyle,
+  Shadow: {
+    shadowColor: "#fff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   } as ViewStyle,
 };

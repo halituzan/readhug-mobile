@@ -28,9 +28,9 @@ export default function Index() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: Colors[theme.mode].background }]}>
       <FlatList
-        contentContainerStyle={{ paddingTop: 80 }} // Tab bar yüksekliğine göre padding
+        contentContainerStyle={{ paddingVertical: 80 }} // Tab bar yüksekliğine göre padding
         data={posts}
-        keyExtractor={(item: any) => item?._id}
+        keyExtractor={(item: any) => item?._id + Math.floor(Math.random() * 9999999)}
         renderItem={({ item }: any) => <Post post={item} />}
         onEndReached={fetchMorePosts}
         onEndReachedThreshold={0.5}

@@ -1,99 +1,161 @@
-import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Colors from '@/constants/Colors';
-import { useTheme } from '@/hooks/useTheme';
-import { Tabs, useRouter } from 'expo-router';
+import { View } from "@/components/Themed";
+import BookIcon from "@/components/ui/Icons/BookIcon";
+import NotificationIcon from "@/components/ui/Icons/NotificationIcon";
+import Settings from "@/components/ui/Icons/Settings";
+import TimeLine from "@/components/ui/Icons/TimeLine";
+import Colors from "@/constants/Colors";
+import { useTheme } from "@/hooks/useTheme";
+import { Tabs } from "expo-router";
+import React from "react";
+import {
+  Image,
+  Platform,
+  Pressable,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
-export default function TabLayout() {
-    const { theme } = useTheme();
-    const router = useRouter();
+export default function TabLayout(props: any) {
+  const { theme } = useTheme();
 
-    const CustomTabBar = ({ state, descriptors }: any) => {
-        return (
-            <View style={[styles.tabBarContainer, { backgroundColor: Colors[theme.mode].background }]}>
-                {state.routes.map((route: any, index: number, arr: any[]) => {
-                    console.log("route", route);
-                    console.log("arr", arr);
-
-
-                    const { options } = descriptors[route.key];
-                    const label = options.title || route.name;
-
-                    const isFocused = state.index === index;
-
-                    const onPress = () => {
-                        const event = descriptors[route.key].navigation.emit({
-                            type: 'tabPress',
-                            target: route.key,
-                            canPreventDefault: true,
-                        });
-
-                        if (!isFocused && !event.defaultPrevented) {
-                            router.push(route.name);
-                        }
-                    };
-
-                    if (index - 1 < index / 2 && index < index + 1) {
-
-                    }
-
-                    return (
-                        <TouchableOpacity
-                            key={route.key}
-                            onPress={onPress}
-                            style={[
-                                styles.tabItem,
-                                isFocused && {
-                                    backgroundColor: Colors[theme.mode].tabIconSelected,
-                                },
-                            ]}
-                        >
-                            <Text style={[styles.tabText, isFocused && { color: Colors.colors.primary }]}>{label}</Text>
-                        </TouchableOpacity>
-                    );
-                })}
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          borderRadius: 20,
+          borderWidth: 0,
+          borderColor: "transparent",
+          padding: 0,
+          marginHorizontal: 15,
+          position: "absolute",
+          bottom: Platform.OS == "ios" ? 40 : 30,
+          zIndex: 10,
+          elevation: 5,
+          flex: 1,
+          height: 50,
+          backgroundColor: Colors[theme.mode].background,
+          //backgroundColor: "red",
+        },
+        tabBarHideOnKeyboard: true,
+      }}
+    >
+      <Tabs.Screen
+        name='index'
+        options={{
+          title: "Timeline",
+          tabBarShowLabel: false,
+          tabBarItemStyle: {
+            marginBottom: Platform.OS === "android" ? 30 : 0,
+          },
+          tabBarIcon: ({ focused }) => (
+            <TimeLine
+              width={32}
+              height={32}
+              color={focused ? Colors.colors.primary : Colors.colors.secondary}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='books'
+        options={{
+          title: "Books",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <BookIcon
+              width={32}
+              height={32}
+              color={focused ? Colors.colors.primary : Colors.colors.secondary}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='profile'
+        options={{
+          title: "Profile",
+          tabBarShowLabel: false,
+          tabBarButton: ({ onPress, focused }: any) => (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "transparent",
+                position: "relative",
+              }}
+            >
+              <ProfileBarButton onPress={onPress} Colors={Colors} theme={theme}>
+                <Image
+                  source={require("../../assets/placeholder/books/book1.jpg")}
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 50,
+                    objectFit: "cover",
+                    position: "absolute",
+                  }}
+                />
+              </ProfileBarButton>
             </View>
-        );
-    };
-
-    return (
-        <Tabs
-            screenOptions={{
-                headerShown: false,
-            }}
-            tabBar={(props) => <CustomTabBar {...props} />}
-        >
-            <Tabs.Screen name="index" options={{ title: 'Timeline' }} />
-            <Tabs.Screen name="about" options={{ title: 'About' }} />
-        </Tabs>
-    );
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='notifications'
+        options={{
+          title: "Notifications",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <NotificationIcon
+              width={32}
+              height={32}
+              color={focused ? Colors.colors.primary : Colors.colors.secondary}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='settings'
+        options={{
+          title: "Settings",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <Settings
+              width={32}
+              height={32}
+              color={focused ? Colors.colors.primary : Colors.colors.secondary}
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }
 
-const styles = StyleSheet.create({
-    tabBarContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 20,
-        marginHorizontal: 15,
-        position: 'absolute',
-        bottom: 50,
-        zIndex: 10,
-        elevation: 5,
-        flex: 1
-    },
-    tabItem: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 10,
-        marginHorizontal: 5,
-        borderRadius: 15,
-    },
-    tabText: {
-        fontSize: 14,
-        color: Colors.colors.primary,
-    },
-});
+const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
+  <Pressable
+    onPress={onPress}
+    style={{
+      top: Platform.OS == "ios" ? -8 : -22,
+      left: "auto",
+      justifyContent: "center",
+      alignItems: "center",
+      width: 64,
+      height: 64,
+      backgroundColor: Colors?.colors.primary,
+      borderRadius: 100,
+      shadowColor: "#fff",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.5,
+      shadowRadius: 3,
+    }}
+  >
+    {children}
+  </Pressable>
+);

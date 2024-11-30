@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   authorImage: {
     width: 40,
     height: 40,
-    borderRadius: "100%",
+    borderRadius: 100,
     backgroundColor: "#fff",
   },
 

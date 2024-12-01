@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import React from "react";
 import { ChevronRight, Lock } from "lucide-react-native";
 import Colors from "@/constants/Colors";
@@ -27,9 +33,32 @@ const PasswordChange = (props: Props) => {
       >
         Şifre İşlemleri
       </Text>
-      <TouchableOpacity style={styles.actionButton}>
-        <Lock color='gray' style={styles.buttonIcon} />
-        <Text style={styles.buttonText}>Şifre Değiştir</Text>
+      <TouchableOpacity
+        style={[
+          styles.actionButton,
+          {
+            backgroundColor: Colors[appTheme.mode][800],
+          },
+        ]}
+      >
+        <Lock
+          style={[
+            styles.buttonIcon,
+            {
+              color: Colors.colors.primary,
+            } as ViewStyle,
+          ]}
+        />
+        <Text
+          style={[
+            styles.buttonText,
+            {
+              color: Colors[appTheme.mode][50],
+            },
+          ]}
+        >
+          Şifre Değiştir
+        </Text>
         <ChevronRight color='gray' />
       </TouchableOpacity>
     </View>
@@ -59,7 +88,6 @@ const styles = StyleSheet.create({
   actionButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f4f4f4",
     padding: 12,
     borderRadius: 8,
   },

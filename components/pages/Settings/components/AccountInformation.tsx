@@ -121,13 +121,18 @@ const AccountInformation = (props: Props) => {
           // },
         ]}
       >
-        <Text style={styles.label}>Doğum Tarihi</Text>
+        <Text style={[styles.label, { color: Colors[appTheme.mode][50] }]}>
+          Doğum Tarihi
+        </Text>
         <TouchableOpacity
           style={[
             styles.inputTouchable,
             {
               backgroundColor: Colors[appTheme.mode][800],
               color: Colors[appTheme.mode][50],
+              borderColor: "gray",
+              borderWidth: 1,
+              borderBottomWidth: showDatePicker ? 0 : 1,
               borderTopRightRadius: 8,
               borderTopLeftRadius: 8,
               borderBottomLeftRadius:
@@ -152,16 +157,23 @@ const AccountInformation = (props: Props) => {
         </TouchableOpacity>
 
         <View
-          style={{
-            backgroundColor: Colors[appTheme.mode][800],
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-          }}
+          style={
+            {
+              backgroundColor: Colors[appTheme.mode][800],
+              color: Colors[appTheme.mode][50],
+              borderBottomLeftRadius: 8,
+              borderBottomRightRadius: 8,
+              borderColor: showDatePicker ? "gray" : "transparent",
+              borderWidth: showDatePicker ? 1 : 0,
+              borderTopWidth: showDatePicker ? 0 : 0,
+            } as ViewStyle
+          }
         >
           {showDatePicker && (
             <RNDateTimePicker
               value={birthDate}
               mode='date'
+              textColor={Colors[appTheme.mode][50]}
               display='spinner'
               onChange={(event: any, selectedDate: any) => {
                 const currentDate = selectedDate || birthDate;

@@ -1,4 +1,5 @@
 import Colors from "@/constants/Colors";
+import { useTheme } from "@/hooks/useTheme";
 import { Picker, PickerIOS } from "@react-native-picker/picker";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -10,9 +11,15 @@ type Props = {
 };
 
 const PickerComponent = ({ value, setValue, label, items }: Props) => {
+  const { theme } = useTheme();
   return (
     <PickerIOS
-      itemStyle={styles.item}
+      itemStyle={[
+        styles.item,
+        {
+          color: Colors[theme.mode][50],
+        },
+      ]}
       selectedValue={value}
       onValueChange={(itemValue) => setValue(itemValue)}
     >
@@ -34,7 +41,6 @@ export default PickerComponent;
 const styles = StyleSheet.create({
   item: {
     fontSize: 18,
-    color: Colors.colors.primary,
     textAlign: "left",
     fontWeight: "bold",
     paddingVertical: 0,

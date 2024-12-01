@@ -28,14 +28,19 @@ const RHSelect = ({ value, setValue, label, items }: Props) => {
       )}
 
       <RNPickerSelect
-        pickerProps={{ style: { height: 50, overflow: "hidden" } }}
         onValueChange={(value: any) => setValue(value)}
+        itemKey={"asdasdasd"}
         items={items}
+        onDonePress={() => {
+          console.log("first");
+        }}
         style={{
           inputIOS: {
             ...styles.pickerIOS,
             backgroundColor: Colors[theme.mode][800],
             color: Colors[theme.mode][50],
+            fontSize: 17,
+            paddingVertical: 12,
           },
           inputAndroid: {
             ...styles.pickerAndroid,
@@ -59,10 +64,10 @@ const styles = StyleSheet.create({
   pickerIOS: {
     borderColor: "gray",
     borderWidth: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     paddingVertical: 16,
     borderRadius: 8,
-    height: 50, // Yükseklik ekleyin
+    height: 50,
   },
   pickerAndroid: {
     borderColor: "gray",

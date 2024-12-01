@@ -24,11 +24,9 @@ import {
   ViewStyle,
 } from "react-native";
 import RHInput from "../ui/RHInput";
-import RHPicker, { RHPickerRef } from "../ui/RHPicker";
 import RHSelect from "../ui/RHSelect";
 
 const SettingsPage = () => {
-  const genderRef = useRef<RHPickerRef>(null);
   const { theme: appTheme } = useTheme();
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setfirstName] = useState("John");
@@ -58,13 +56,7 @@ const SettingsPage = () => {
     setShowDatePicker(Platform.OS === "ios");
     setBirthDate(currentDate);
   };
-  const openBottomSheet = () => {
-    genderRef.current?.open();
-  };
 
-  const closeBottomSheet = () => {
-    genderRef.current?.close();
-  };
   return (
     <ScrollView style={styles.container}>
       {/* Kullanıcı Bilgileri */}
@@ -201,20 +193,6 @@ const SettingsPage = () => {
               { label: "Diğer", value: "other" },
             ]}
           />
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Button title='Open Bottom Sheet' onPress={openBottomSheet} />
-            <Button title='Close Bottom Sheet' onPress={closeBottomSheet} />
-            <RHPicker ref={genderRef}>
-              <View>
-                <Button
-                  title='Inside Content'
-                  onPress={() => alert("Hello!")}
-                />
-              </View>
-            </RHPicker>
-          </View>
         </View>
       </View>
 

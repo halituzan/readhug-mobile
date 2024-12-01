@@ -1,3 +1,4 @@
+import SettingsPage from "@/components/pages/Settings/Settings";
 import Colors from "@/constants/Colors";
 import { GlobalStyles } from "@/constants/Theme";
 import { useTheme } from "@/hooks/useTheme";
@@ -14,8 +15,7 @@ export default function SettingsScreen() {
         { backgroundColor: Colors[theme.mode].background },
       ]}
     >
-      <Text style={styles.text}>SettingsScreen</Text>
-      <Link href='/home'>Go to About screen</Link>
+      <SettingsPage />
     </SafeAreaView>
   );
 }

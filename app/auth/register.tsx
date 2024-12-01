@@ -1,4 +1,4 @@
-import RegisterScreen from "@/components/auth/RegisterScreen";
+import RegisterScreen from "@/components/Auth/RegisterScreen";
 import React, { Fragment } from "react";
 
 type Props = {};

@@ -1,7 +1,14 @@
 import Colors from "@/constants/Colors";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -14,13 +21,15 @@ export default function RegisterScreen() {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Register Attempt:", { name, email, password });
   };
 
   return (
     <View style={styles.container}>
       {/* Logo */}
-      <Image source={require("../../assets/images/logo.png")} style={styles.logo} />
+      <Image
+        source={require("../../assets/images/logo.png")}
+        style={styles.logo}
+      />
 
       {/* Title */}
       <Text style={styles.title}>Create an Account</Text>
@@ -30,31 +39,31 @@ export default function RegisterScreen() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Name"
-          placeholderTextColor="#aaa"
+          placeholder='Name'
+          placeholderTextColor='#aaa'
           value={name}
           onChangeText={setName}
         />
         <TextInput
           style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#aaa"
-          keyboardType="email-address"
+          placeholder='Email'
+          placeholderTextColor='#aaa'
+          keyboardType='email-address'
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#aaa"
+          placeholder='Password'
+          placeholderTextColor='#aaa'
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
         <TextInput
           style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor="#aaa"
+          placeholder='Confirm Password'
+          placeholderTextColor='#aaa'
           secureTextEntry
           value={confirmPassword}
           onChangeText={setConfirmPassword}
@@ -95,7 +104,9 @@ export default function RegisterScreen() {
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>Already have an account? </Text>
         <TouchableOpacity>
-          <Link href={"/auth/login"} style={styles.loginLink}>Login</Link>
+          <Link href={"/auth/login"} style={styles.loginLink}>
+            Login
+          </Link>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,7 +1,7 @@
 import Colors from "@/constants/Colors";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { Camera, ChevronRight } from "lucide-react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Platform,
@@ -17,18 +17,24 @@ import RHInput from "@/components/ui/RHInput";
 import { useTheme } from "@/hooks/useTheme";
 import * as ImagePicker from "expo-image-picker";
 import RHButton from "@/components/ui/RHButton";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/store/features/userSlice";
 
 type Props = {};
 
 const AccountInformation = (props: Props) => {
   const { theme: appTheme } = useTheme();
+  const user = useSelector(selectUser);
   const [profileImage, setProfileImage] = useState(null);
-  const [firstName, setfirstName] = useState("John");
-  const [lastName, setLastName] = useState("Doe");
-  const [userName, setUserName] = useState("johndoe");
-  const [birthDate, setBirthDate] = useState(new Date());
-  const [gender, setGender] = useState("male");
+  const [firstName, setfirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [userName, setUserName] = useState(user.userName);
+  const [birthDate, setBirthDate] = useState(new Date(user.birthDate));
+  const [gender, setGender] = useState(
+    user.gender.toString() ? user.gender.toString() : "0"
+  );
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isDisableButton, setIsDisableButton] = useState(true);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -42,6 +48,28 @@ const AccountInformation = (props: Props) => {
       setProfileImage(result.assets[0].uri as any);
     }
   };
+
+  const buttonControl = () => {
+    if (
+      !firstName ||
+      !lastName ||
+      !userName ||
+      !birthDate ||
+      (userName === user.userName &&
+        firstName === user.firstName &&
+        lastName === user.lastName 
+       )
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  useEffect(() => {
+    const data = buttonControl();
+    setIsDisableButton(data);
+    console.log(data, "isDisabled");
+  }, [firstName, lastName, userName, gender, birthDate]);
   return (
     <View
       style={[
@@ -212,14 +240,14 @@ const AccountInformation = (props: Props) => {
             value={gender}
             setValue={setGender}
             items={[
-              { label: "Erkek", value: "male" },
-              { label: "Kadın", value: "female" },
-              { label: "Diğer", value: "other" },
+              { label: "Erkek", value: "2" },
+              { label: "Kadın", value: "1" },
+              { label: "Diğer", value: "0" },
             ]}
           />
         </View>
       </View>
-      <RHButton text='Kaydet' onPress={() => {}} />
+      <RHButton text='Kaydet' onPress={() => {}} isDisable={isDisableButton} />
     </View>
   );
 };

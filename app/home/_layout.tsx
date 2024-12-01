@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 export default function TabLayout(props: any) {
   const { theme } = useTheme();
   const user = useSelector(selectUser);
-  console.log("user", user);
 
   return (
     <Tabs

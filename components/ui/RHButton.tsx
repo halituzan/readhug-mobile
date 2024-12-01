@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Colors from "@/constants/Colors";
 import { GlobalStyles } from "@/constants/Theme";
+import { useTheme } from "@/hooks/useTheme";
 
 type Props = {
   isDisable?: boolean;
@@ -17,10 +18,18 @@ type Props = {
 };
 
 const RHButton = ({ text, loading, onPress, isDisable }: Props) => {
+  const { theme: appTheme } = useTheme();
   return (
     <View style={styles.provider}>
       <TouchableOpacity
-        style={styles.button}
+        style={[
+          styles.button,
+          {
+            backgroundColor: isDisable
+              ? Colors.colors.secondary
+              : Colors.colors.primary,
+          },
+        ]}
         onPress={onPress}
         disabled={isDisable || loading}
       >
@@ -43,7 +52,6 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: Colors.colors.primary,
     ...GlobalStyles.flexFullCenter,
     height: 48,
   },

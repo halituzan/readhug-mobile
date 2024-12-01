@@ -31,9 +31,6 @@ const RHSelect = ({ value, setValue, label, items }: Props) => {
         onValueChange={(value: any) => setValue(value)}
         itemKey={"asdasdasd"}
         items={items}
-        onDonePress={() => {
-          console.log("first");
-        }}
         style={{
           inputIOS: {
             ...styles.pickerIOS,

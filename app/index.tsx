@@ -12,9 +12,6 @@ const Welcome = () => {
   const getTheme = async () => {
     try {
       const themes = await LocalStorage.get("theme");
-      console.log("themes", themes);
-      
-
       if (!themes) {
         dispatch(setTheme("light"));
         dispatch(setLanguage("tr"));

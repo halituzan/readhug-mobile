@@ -19,7 +19,6 @@ const AppNavigation: React.FC = (props: Props) => {
   const login = useSelector(selectUserLogin);
   const theme = useSelector(selectTheme);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  console.log("theme", theme);
 
   const getTheme = async () => {
     const themes = await LocalStorage.get("theme");

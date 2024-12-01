@@ -16,7 +16,6 @@ const Preferences = (props: Props) => {
   const [language, setLanguage] = useState("tr");
 
   const changeTheme = async () => {
-    console.log("first");
     dispatch(setTheme(themes as "light" | "dark"));
   };
   useEffect(() => {

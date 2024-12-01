@@ -1,4 +1,4 @@
-import LoginScreen from "@/components/auth/LoginScreen";
+import LoginScreen from "@/components/Auth/LoginScreen";
 import React, { Fragment } from "react";
 
 type Props = {};

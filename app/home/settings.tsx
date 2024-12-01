@@ -1,4 +1,4 @@
-import SettingsPage from "@/components/pages/Settings";
+import SettingsPage from "@/components/pages/Settings/Settings";
 import Colors from "@/constants/Colors";
 import { GlobalStyles } from "@/constants/Theme";
 import { useTheme } from "@/hooks/useTheme";

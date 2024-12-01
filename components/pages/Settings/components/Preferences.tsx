@@ -12,7 +12,7 @@ type Props = {};
 const Preferences = (props: Props) => {
   const { theme: appTheme } = useTheme();
   const dispatch = useDispatch();
-  const [themes, setThemes] = useState("light");
+  const [themes, setThemes] = useState(appTheme.mode);
   const [language, setLanguage] = useState("tr");
 
   const changeTheme = async () => {

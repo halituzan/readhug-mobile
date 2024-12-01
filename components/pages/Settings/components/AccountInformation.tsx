@@ -16,6 +16,7 @@ import PickerComponent from "@/components/ui/Picker";
 import RHInput from "@/components/ui/RHInput";
 import { useTheme } from "@/hooks/useTheme";
 import * as ImagePicker from "expo-image-picker";
+import RHButton from "@/components/ui/RHButton";
 
 type Props = {};
 
@@ -218,6 +219,7 @@ const AccountInformation = (props: Props) => {
           />
         </View>
       </View>
+      <RHButton text='Kaydet' onPress={() => {}} />
     </View>
   );
 };
@@ -273,8 +275,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   label: {
-    color: "gray",
     marginBottom: 5,
+    fontSize: 16,
   },
   preferenceRow: {
     flexDirection: "row",

@@ -1,14 +1,7 @@
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React from "react";
 import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
-import { useTheme } from "@/hooks/useTheme";
+import { useStyles } from "@/hooks/useStyles";
+import React from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
 type Props = {
   isDisable?: boolean;
@@ -18,36 +11,20 @@ type Props = {
 };
 
 const RHButton = ({ text, loading, onPress, isDisable }: Props) => {
-  const { theme: appTheme } = useTheme();
+  const { styles } = useStyles();
+  const buttonStyles = styles({ isDisable }).button;
+  const buttonTextStyles = styles({ isDisable }).buttonText;
   return (
-    <View style={styles.provider}>
+    <View style={{ flex: 1 }}>
       <TouchableOpacity
-        style={[
-          styles.button,
-          {
-            backgroundColor: isDisable
-              ? Colors.colors.secondary
-              : Colors.colors.primary,
-          },
-        ]}
+        style={buttonStyles}
         onPress={onPress}
         disabled={isDisable || loading}
       >
         {loading ? (
           <ActivityIndicator color={Colors.colors.primary} />
         ) : (
-          <Text
-            style={[
-              styles.buttonText,
-              {
-                color: isDisable
-                  ? Colors[appTheme.mode][50]
-                  : Colors[appTheme.mode][900],
-              },
-            ]}
-          >
-            {text}
-          </Text>
+          <Text style={buttonTextStyles}>{text}</Text>
         )}
       </TouchableOpacity>
     </View>
@@ -55,18 +32,3 @@ const RHButton = ({ text, loading, onPress, isDisable }: Props) => {
 };
 
 export default RHButton;
-
-const styles = StyleSheet.create({
-  provider: {
-    flex: 1,
-  },
-  button: {
-    padding: 10,
-    borderRadius: 10,
-    ...GlobalStyles.flexFullCenter,
-    height: 48,
-  },
-  buttonText: {
-    fontSize: 16,
-  },
-});

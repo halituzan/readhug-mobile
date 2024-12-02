@@ -6,7 +6,7 @@ import {
   setLanguage,
 } from "../store/features/themeSlice";
 import Colors from "@/constants/Colors";
-import { Opacity } from "@/constants/types";
+import { ColorsTypes, OpacityTypes } from "@/constants/types";
 
 export const useTheme = () => {
   const theme = useSelector((state: RootState) => state.theme);
@@ -24,10 +24,7 @@ export const useTheme = () => {
     dispatch(setLanguage(language));
   };
 
-  const themeModeColor = (
-    colorCode: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950,
-    opacity?: Opacity
-  ) => {
+  const themeModeColor = (colorCode: ColorsTypes, opacity?: OpacityTypes) => {
     const color = Colors[theme.mode][colorCode];
     if (opacity !== undefined) {
       const opacityHex = Math.round((opacity / 100) * 255)

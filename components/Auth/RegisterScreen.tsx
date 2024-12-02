@@ -1,4 +1,5 @@
 import Colors from "@/constants/Colors";
+import { useStyles } from "@/hooks/useStyles";
 import { useTheme } from "@/hooks/useTheme";
 import { Link } from "expo-router";
 import React, { useState } from "react";
@@ -12,6 +13,7 @@ import {
 } from "react-native";
 
 export default function RegisterScreen() {
+  const { styles: themeStyle } = useStyles();
   const { themeModeColor } = useTheme();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,6 +28,7 @@ export default function RegisterScreen() {
     }
   };
 
+  const inputStyles = themeStyle({}).input;
   return (
     <View
       style={[
@@ -57,26 +60,14 @@ export default function RegisterScreen() {
       {/* Input Fields */}
       <View style={styles.inputContainer}>
         <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: themeModeColor(800),
-              color: themeModeColor(50),
-            },
-          ]}
+          style={inputStyles}
           placeholder='Name'
           placeholderTextColor='#aaa'
           value={name}
           onChangeText={setName}
         />
         <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: themeModeColor(800),
-              color: themeModeColor(50),
-            },
-          ]}
+          style={inputStyles}
           placeholder='Email'
           placeholderTextColor='#aaa'
           keyboardType='email-address'
@@ -84,13 +75,7 @@ export default function RegisterScreen() {
           onChangeText={setEmail}
         />
         <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: themeModeColor(800),
-              color: themeModeColor(50),
-            },
-          ]}
+          style={inputStyles}
           placeholder='Password'
           placeholderTextColor='#aaa'
           secureTextEntry
@@ -98,13 +83,7 @@ export default function RegisterScreen() {
           onChangeText={setPassword}
         />
         <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: themeModeColor(800),
-              color: themeModeColor(50),
-            },
-          ]}
+          style={inputStyles}
           placeholder='Confirm Password'
           placeholderTextColor='#aaa'
           secureTextEntry

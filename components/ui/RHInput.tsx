@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { useTheme } from "@/hooks/useTheme";
 import Colors from "@/constants/Colors";
+import { useStyles } from "@/hooks/useStyles";
 
 interface RHInputProps extends TextInputProps {
   label?: string;
@@ -28,27 +29,21 @@ const RHInput = ({
   keyboardType,
   ...props
 }: RHInputProps) => {
-  const { theme } = useTheme();
+  const { styles } = useStyles();
+
+  const inputStyles = styles({}).input;
+  const labelStyles = styles({}).label;
+
   return (
     <View style={{ flex: 1 }}>
-      {label && (
-        <Text style={[styles.label, { color: Colors[theme.mode][50] }]}>
-          {label}
-        </Text>
-      )}
+      {label && <Text style={labelStyles}>{label}</Text>}
 
       <TextInput
         placeholder={placeholder}
         value={value}
         onChangeText={setValue}
         keyboardType={keyboardType}
-        style={[
-          styles.input,
-          {
-            backgroundColor: Colors[theme.mode][800],
-            color: Colors[theme.mode][50],
-          },
-        ]}
+        style={inputStyles}
         {...props}
       />
     </View>
@@ -56,17 +51,3 @@ const RHInput = ({
 };
 
 export default RHInput;
-
-const styles = StyleSheet.create({
-  input: {
-    borderColor: "gray",
-    borderWidth: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 16,
-    borderRadius: 8,
-  },
-  label: {
-    marginBottom: 4,
-    fontSize: 16,
-  },
-});

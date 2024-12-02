@@ -109,13 +109,11 @@ const AccountInformation = (props: Props) => {
 
       <View
         style={[
-          styles.inputContainer,
           {
             flexDirection: "row",
             flex: 1,
             justifyContent: "space-between",
             gap: 6,
-            marginTop: 6,
           },
         ]}
       >
@@ -133,7 +131,7 @@ const AccountInformation = (props: Props) => {
         />
       </View>
 
-      <View style={styles.inputContainer}>
+      <View>
         <RHInput
           value={userName}
           setValue={setUserName}
@@ -142,14 +140,7 @@ const AccountInformation = (props: Props) => {
         />
       </View>
 
-      <View
-        style={[
-          styles.inputContainer,
-          // {
-          //   backgroundColor: Colors[appTheme.mode][800],
-          // },
-        ]}
-      >
+      <View>
         <Text style={[styles.label, { color: Colors[appTheme.mode][50] }]}>
           Doğum Tarihi
         </Text>
@@ -217,6 +208,7 @@ const AccountInformation = (props: Props) => {
       <View style={styles.preferenceRow}>
         <View
           style={{
+            marginTop:10,
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
@@ -289,9 +281,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 8,
   },
-  inputContainer: {
-    marginBottom: 15,
-  },
+
   inputTouchable: {
     flexDirection: "row",
     justifyContent: "space-between",

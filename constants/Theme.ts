@@ -83,7 +83,6 @@ export const GlobalStyles = {
     height: height - (Platform.OS === "ios" ? 198 : 140),
   } as ViewStyle,
   Card: {
-    backgroundColor: "white",
     padding: 15,
     paddingBottom: 0,
     marginBottom: 25,

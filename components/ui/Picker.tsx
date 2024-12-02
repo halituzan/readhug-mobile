@@ -2,7 +2,8 @@ import Colors from "@/constants/Colors";
 import { useTheme } from "@/hooks/useTheme";
 import { Picker, PickerIOS } from "@react-native-picker/picker";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet, View, ViewStyle } from "react-native";
+import CustomPicker from "./PickerModal";
 type Props = {
   value: any;
   setValue: any;
@@ -12,7 +13,8 @@ type Props = {
 
 const PickerComponent = ({ value, setValue, label, items }: Props) => {
   const { theme } = useTheme();
-  return (
+  const platform = Platform.OS;
+  return platform == "ios" ? (
     <PickerIOS
       itemStyle={[
         styles.item,
@@ -33,6 +35,8 @@ const PickerComponent = ({ value, setValue, label, items }: Props) => {
         );
       })}
     </PickerIOS>
+  ) : (
+    <CustomPicker value={value} setValue={setValue} items={items} />
   );
 };
 
@@ -44,6 +48,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "bold",
     paddingVertical: 0,
-    height: 100,
+    height: Platform.OS == "ios" ? 100 : 0,
   },
 });

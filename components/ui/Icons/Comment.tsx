@@ -1,20 +1,33 @@
+import { SvgGlobalProps } from "@/constants/types";
 import React from "react";
+import { Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
-
-type Props = {};
-
-const Comment = (props: Props) => {
+interface CommentProps extends SvgGlobalProps {
+  messageColor?: string;
+}
+const Comment = ({
+  width = 21,
+  height = 21,
+  color = "currentColor",
+  messageColor = "none",
+}: CommentProps) => {
   return (
     <Svg
-      width='24'
-      height='24'
+      width={width}
+      height={height}
       viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      fill={messageColor}
+      stroke={color}
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       className='lucide lucide-message-circle'
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        flex: 1,
+      }}
     >
       <Path d='M7.9 20A9 9 0 1 0 4 16.1L2 22Z' />
     </Svg>

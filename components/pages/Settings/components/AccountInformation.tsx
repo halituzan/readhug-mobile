@@ -35,8 +35,7 @@ const AccountInformation = (props: Props) => {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isDisableButton, setIsDisableButton] = useState(true);
-  console.log("birthDate", birthDate);
-  console.log("user.birthDate", user.birthDate);
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

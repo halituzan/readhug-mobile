@@ -3,23 +3,34 @@ import { GlobalStyles } from "@/constants/Theme";
 import { formatDate } from "@/lib/formatDate";
 import React, { useState } from "react";
 import {
-    FlatList,
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import CommentCard from "./CommentCard";
 import Comment from "./Icons/Comment";
 import Heart from "./Icons/Heart";
 import { Input } from "./Input";
+import { useTheme } from "@/hooks/useTheme";
+import Colors from "@/constants/Colors";
 
 const Post = ({ post }: any) => {
+  const { theme } = useTheme();
   const [openMessage, setOpenMessage] = useState(false);
   const [newComment, setNewComment] = useState<string>("");
+
   return (
-    <View style={GlobalStyles.Card}>
+    <View
+      style={[
+        GlobalStyles.Card,
+        {
+          backgroundColor: Colors[theme.mode][800],
+        },
+      ]}
+    >
       <View style={styles.header}>
         <Image
           source={
@@ -47,8 +58,24 @@ const Post = ({ post }: any) => {
           }}
         >
           <View>
-            <Text style={styles.title}>{post?.book?.bookName}</Text>
-            <Text style={styles.author}>
+            <Text
+              style={[
+                styles.title,
+                {
+                  color: Colors[theme.mode][100],
+                },
+              ]}
+            >
+              {post?.book?.bookName}
+            </Text>
+            <Text
+              style={[
+                styles.author,
+                {
+                  color: Colors[theme.mode][300],
+                },
+              ]}
+            >
               {post?.book?.bookId?.authors.map((i: any) => i.name).join(" & ")}
             </Text>
           </View>
@@ -61,12 +88,30 @@ const Post = ({ post }: any) => {
         </View>
       </View>
       <View style={styles.content}>
-        <Text>{post.content}</Text>
+        <Text
+          style={{
+            color: Colors[theme.mode][100],
+          }}
+        >
+          {post.content}
+        </Text>
       </View>
       <View style={styles.footer}>
         <View style={styles.interactionContainer}>
-          <Heart />
-          <Text style={styles.interactionCount}>{post.likeCount}</Text>
+          <Heart
+            color={Colors.colors.primary}
+            likedColor={post.isLiked ? Colors.colors.primary : "none"}
+          />
+          <Text
+            style={[
+              styles.interactionCount,
+              {
+                color: Colors[theme.mode][300],
+              },
+            ]}
+          >
+            {post.likeCount}
+          </Text>
         </View>
         <Pressable
           onPress={() => {
@@ -74,10 +119,33 @@ const Post = ({ post }: any) => {
           }}
           style={styles.interactionContainer}
         >
-          <Comment />
-          <Text style={styles.interactionCount}>{post.commentCount}</Text>
+          <Comment
+            color={Colors.colors.primary}
+            messageColor={
+              post.commentCount > 0 ? Colors.colors.primary : "none"
+            }
+          />
+          <Text
+            style={[
+              styles.interactionCount,
+              {
+                color: Colors[theme.mode][300],
+              },
+            ]}
+          >
+            {post.commentCount}
+          </Text>
         </Pressable>
-        <Text style={styles.timestamp}>{formatDate(post.createdAt)}</Text>
+        <Text
+          style={[
+            styles.timestamp,
+            {
+              color: Colors[theme.mode][300],
+            },
+          ]}
+        >
+          {formatDate(post.createdAt)}
+        </Text>
       </View>
       {openMessage && (
         <View>

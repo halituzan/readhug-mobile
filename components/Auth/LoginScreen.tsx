@@ -1,47 +1,90 @@
 import Colors from "@/constants/Colors";
+import { useTheme } from "@/hooks/useTheme";
 import { Login } from "@/services/auth/login.service";
 import { Link, Redirect, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
+import RHInput from "../ui/RHInput";
 
 export default function LoginScreen() {
+  const { themeModeColor } = useTheme();
   const [email, setEmail] = useState("halit.uzan@gmail.com");
   const [password, setPassword] = useState("123456789c!");
-  const router = useRouter()
+  const router = useRouter();
+
+  const color = themeModeColor(50);
+  const backgroundColor = themeModeColor(900);
 
   const handleLogin = async () => {
     try {
-      const data: any = await Login({ email, password })
+      const data: any = await Login({ email, password });
 
       if (data.access_token) {
-        router.push("/home")
+        router.push("/home");
       }
-
     } catch (error) {
       console.log(error, "error");
-
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require("../../assets/images/logo.png")} style={styles.logo} />
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor,
+        },
+      ]}
+    >
+      <Image
+        source={require("../../assets/images/logo.png")}
+        style={styles.logo}
+      />
 
-      <Text style={styles.title}>Welcome Back!</Text>
-      <Text style={styles.subtitle}>Login to continue</Text>
+      <Text style={[styles.title, { color }]}>Welcome Back!</Text>
+      <Text
+        style={[
+          styles.subtitle,
+          {
+            color: themeModeColor(300),
+          },
+        ]}
+      >
+        Login to continue
+      </Text>
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#aaa"
-          keyboardType="email-address"
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
+          placeholder='Email'
+          placeholderTextColor='#aaa'
+          keyboardType='email-address'
           value={email}
           onChangeText={setEmail}
         />
+        <RHInput value={email} setValue={setEmail} />
         <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#aaa"
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
+          placeholder='Password'
+          placeholderTextColor='#aaa'
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -82,9 +125,13 @@ export default function LoginScreen() {
 
       {/* Sign Up */}
       <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Don't have an account? </Text>
+        <Text style={[{ color: themeModeColor(100) }]}>
+          Don't have an account?{" "}
+        </Text>
         <TouchableOpacity>
-          <Link href={"/auth/register"} style={styles.signupLink}>Sign Up</Link>
+          <Link href={"/auth/register"} style={styles.signupLink}>
+            Sign Up
+          </Link>
         </TouchableOpacity>
       </View>
     </View>
@@ -94,7 +141,6 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#25292e",
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -119,8 +165,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#1f242b",
-    color: "#fff",
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
@@ -130,11 +178,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   forgotPasswordText: {
-    color: Colors.light.tint,
+    color: Colors.colors.primary,
     fontSize: 14,
   },
   loginButton: {
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.colors.primary,
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -142,7 +190,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   loginButtonText: {
-    color: "#25292e",
+    color: "white",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -184,11 +232,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 20,
   },
-  signupText: {
-    color: "#aaa",
-  },
   signupLink: {
-    color: Colors.light.tint,
+    color: Colors.colors.primary,
     fontWeight: "bold",
   },
 });

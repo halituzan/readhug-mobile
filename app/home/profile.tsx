@@ -11,7 +11,7 @@ export default function ProfileScreen() {
     <SafeAreaView
       style={[
         GlobalStyles.flexFullCenter,
-        { backgroundColor: Colors[theme.mode].background },
+        { backgroundColor: Colors[theme.mode][950]},
       ]}
     >
       <Text style={styles.text}>Profile screen</Text>

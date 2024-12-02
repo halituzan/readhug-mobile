@@ -23,7 +23,7 @@ export default function TabLayout(props: any) {
         tabBarStyle: [
           tabStyles,
           {
-            backgroundColor: Colors[theme.mode].background,
+            backgroundColor: Colors[theme.mode][900],
             // shadowColor: Colors[theme.mode].contrastText,
             // shadowOffset: { width: 0, height: 0 } as ViewStyle,
             // shadowOpacity: 0.1,
@@ -143,10 +143,10 @@ const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
       height: 64,
       backgroundColor: Colors?.colors.primary,
       borderRadius: 100,
-      shadowColor: "#fff",
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.5,
-      shadowRadius: 3,
+      // shadowColor: "#fff",
+      // shadowOffset: { width: 0, height: 0 },
+      // shadowOpacity: 0.5,
+      // shadowRadius: 3,
     }}
   >
     {children}
@@ -154,7 +154,7 @@ const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
 );
 
 const tabStyles = {
-  ...GlobalStyles.Shadow,
+  // ...GlobalStyles.Shadow,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",

@@ -1,4 +1,7 @@
 import {
+  KeyboardType,
+  KeyboardTypeAndroid,
+  KeyboardTypeIOS,
   StyleSheet,
   Text,
   TextInput,
@@ -10,23 +13,35 @@ import React from "react";
 import { useTheme } from "@/hooks/useTheme";
 import Colors from "@/constants/Colors";
 
-interface Props extends TextInputProps {
+interface RHInputProps extends TextInputProps {
   label?: string;
   placeholder?: string;
   value: any;
   setValue: any;
+  keyboardType?: KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS;
 }
-const RHInput = ({ label, value, setValue, placeholder }: Props) => {
+const RHInput = ({
+  label,
+  value,
+  setValue,
+  placeholder,
+  keyboardType,
+  ...props
+}: RHInputProps) => {
   const { theme } = useTheme();
   return (
-    <View style={{ flex: 1 } as ViewStyle}>
-      <Text style={[styles.label, { color: Colors[theme.mode][50] }]}>
-        {label}
-      </Text>
+    <View style={{ flex: 1 }}>
+      {label && (
+        <Text style={[styles.label, { color: Colors[theme.mode][50] }]}>
+          {label}
+        </Text>
+      )}
+
       <TextInput
         placeholder={placeholder}
         value={value}
         onChangeText={setValue}
+        keyboardType={keyboardType}
         style={[
           styles.input,
           {
@@ -34,6 +49,7 @@ const RHInput = ({ label, value, setValue, placeholder }: Props) => {
             color: Colors[theme.mode][50],
           },
         ]}
+        {...props}
       />
     </View>
   );

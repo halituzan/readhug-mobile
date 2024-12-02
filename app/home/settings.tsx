@@ -12,7 +12,7 @@ export default function SettingsScreen() {
     <SafeAreaView
       style={[
         GlobalStyles.flexFullCenter,
-        { backgroundColor: Colors[theme.mode].background },
+        { backgroundColor: Colors[theme.mode][950] },
       ]}
     >
       <SettingsPage />

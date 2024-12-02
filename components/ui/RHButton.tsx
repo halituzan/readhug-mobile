@@ -36,7 +36,18 @@ const RHButton = ({ text, loading, onPress, isDisable }: Props) => {
         {loading ? (
           <ActivityIndicator color={Colors.colors.primary} />
         ) : (
-          <Text style={styles.buttonText}>{text}</Text>
+          <Text
+            style={[
+              styles.buttonText,
+              {
+                color: isDisable
+                  ? Colors[appTheme.mode][50]
+                  : Colors[appTheme.mode][900],
+              },
+            ]}
+          >
+            {text}
+          </Text>
         )}
       </TouchableOpacity>
     </View>
@@ -57,6 +68,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: "white",
   },
 });

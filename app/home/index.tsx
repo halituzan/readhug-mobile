@@ -26,10 +26,7 @@ export default function Index() {
 
   return (
     <SafeAreaView
-      style={[
-        styles.container,
-        { backgroundColor: Colors[theme.mode].background },
-      ]}
+      style={[styles.container, { backgroundColor: Colors[theme.mode][950] }]}
     >
       <FlatList
         contentContainerStyle={{ paddingBottom: 80, paddingTop: 80 }} // Tab bar yüksekliğine göre padding

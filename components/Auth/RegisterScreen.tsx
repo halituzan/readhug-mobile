@@ -1,4 +1,5 @@
 import Colors from "@/constants/Colors";
+import { useTheme } from "@/hooks/useTheme";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,11 +12,13 @@ import {
 } from "react-native";
 
 export default function RegisterScreen() {
+  const { themeModeColor } = useTheme();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const color = themeModeColor(50);
+  const backgroundColor = themeModeColor(900);
   const handleRegister = () => {
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
@@ -24,7 +27,14 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor,
+        },
+      ]}
+    >
       {/* Logo */}
       <Image
         source={require("../../assets/images/logo.png")}
@@ -32,20 +42,41 @@ export default function RegisterScreen() {
       />
 
       {/* Title */}
-      <Text style={styles.title}>Create an Account</Text>
-      <Text style={styles.subtitle}>Sign up to get started</Text>
+      <Text style={[styles.title, { color }]}>Create an Account</Text>
+      <Text
+        style={[
+          styles.subtitle,
+          {
+            color: themeModeColor(300),
+          },
+        ]}
+      >
+        Sign up to get started
+      </Text>
 
       {/* Input Fields */}
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
           placeholder='Name'
           placeholderTextColor='#aaa'
           value={name}
           onChangeText={setName}
         />
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
           placeholder='Email'
           placeholderTextColor='#aaa'
           keyboardType='email-address'
@@ -53,7 +84,13 @@ export default function RegisterScreen() {
           onChangeText={setEmail}
         />
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
           placeholder='Password'
           placeholderTextColor='#aaa'
           secureTextEntry
@@ -61,7 +98,13 @@ export default function RegisterScreen() {
           onChangeText={setPassword}
         />
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor: themeModeColor(800),
+              color: themeModeColor(50),
+            },
+          ]}
           placeholder='Confirm Password'
           placeholderTextColor='#aaa'
           secureTextEntry
@@ -102,7 +145,9 @@ export default function RegisterScreen() {
 
       {/* Login Link */}
       <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>Already have an account? </Text>
+        <Text style={[{ color: themeModeColor(100) }]}>
+          Already have an account?{" "}
+        </Text>
         <TouchableOpacity>
           <Link href={"/auth/login"} style={styles.loginLink}>
             Login
@@ -141,14 +186,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#1f242b",
-    color: "#fff",
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
   },
   registerButton: {
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.colors.primary,
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -156,7 +203,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   registerButtonText: {
-    color: "#25292e",
+    color: "white",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -202,7 +249,7 @@ const styles = StyleSheet.create({
     color: "#aaa",
   },
   loginLink: {
-    color: Colors.light.tint,
+    color: Colors.colors.primary,
     fontWeight: "bold",
   },
 });

@@ -17,10 +17,11 @@ const SettingsPage = () => {
     <ScrollView style={styles.container}>
       {/* Kullanıcı Bilgileri */}
       <AccountInformation />
-      {/* Şifre İşlemleri */}
-      <PasswordChange />
       {/* Tercihler */}
       <Preferences />
+      {/* Şifre İşlemleri */}
+      <PasswordChange />
+
       {/* Çıkış Butonu */}
       <TouchableOpacity style={styles.logoutButton}>
         <LogOutIcon color='white' style={styles.buttonIcon} />

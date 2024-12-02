@@ -31,11 +31,12 @@ const AccountInformation = (props: Props) => {
   const [userName, setUserName] = useState(user.userName);
   const [birthDate, setBirthDate] = useState(new Date(user.birthDate));
   const [gender, setGender] = useState(
-    user.gender.toString() ? user.gender.toString() : "0"
+    user?.gender?.toString() ? user?.gender?.toString() : "0"
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isDisableButton, setIsDisableButton] = useState(true);
-
+  console.log("birthDate", birthDate);
+  console.log("user.birthDate", user.birthDate);
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -48,7 +49,6 @@ const AccountInformation = (props: Props) => {
       setProfileImage(result.assets[0].uri as any);
     }
   };
-
   const buttonControl = () => {
     if (
       !firstName ||
@@ -57,8 +57,9 @@ const AccountInformation = (props: Props) => {
       !birthDate ||
       (userName === user.userName &&
         firstName === user.firstName &&
-        lastName === user.lastName 
-       )
+        lastName === user.lastName &&
+        gender === user.gender.toString() &&
+        birthDate.getTime() === new Date(user.birthDate).getTime())
     ) {
       return true;
     } else {

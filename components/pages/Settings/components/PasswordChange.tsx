@@ -10,16 +10,17 @@ import { ChevronRight, Lock } from "lucide-react-native";
 import Colors from "@/constants/Colors";
 import { useTheme } from "@/hooks/useTheme";
 import { useStyles } from "@/hooks/useStyles";
+import Card from "@/components/ui/Card";
 
 type Props = {};
 
 const PasswordChange = (props: Props) => {
   const { theme: appTheme } = useTheme();
-  const { styles: appStyle } = useStyles();
+  const { styles: appStyle, settingsStyles } = useStyles();
   const style = appStyle({});
+  const settings = settingsStyles({});
   return (
-    <View style={[style.card]}>
-      <Text style={appStyle({ fontSize: 18 }).cardTitle}>Şifre İşlemleri</Text>
+    <Card cardTitle='Şifre İşlemleri'>
       <TouchableOpacity
         style={[
           styles.actionButton,
@@ -48,7 +49,7 @@ const PasswordChange = (props: Props) => {
         </Text>
         <ChevronRight color='gray' />
       </TouchableOpacity>
-    </View>
+    </Card>
   );
 };
 

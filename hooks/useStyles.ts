@@ -14,6 +14,7 @@ interface StyleProps {
   isDanger?: boolean;
   isOk?: boolean;
   fontSize?: number;
+  show?: boolean;
 }
 export const useStyles = () => {
   const { themeModeColor } = useTheme();
@@ -43,7 +44,7 @@ export const useStyles = () => {
           bgOpacity && (bgOpacity >= 0 || bgOpacity < 101) ? bgOpacity : 100
         ),
         color: themeModeColor(color ? color : 50, colorOpacity && colorOpacity),
-        borderColor: "gray",
+        borderColor: themeModeColor(500),
         borderWidth: 1,
         paddingHorizontal: 8,
         paddingVertical: 16,
@@ -88,12 +89,13 @@ export const useStyles = () => {
         color: themeModeColor(50),
       },
       cardEmptyBlock: { minWidth: 75, minHeight: 60, width: 75, height: 60 },
+      //? Card > Header
       cardHeader: {
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "flex-start",
         borderBottomColor: "gray",
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         paddingBottom: 8,
       },
       cardBook: {
@@ -110,7 +112,7 @@ export const useStyles = () => {
       },
       cardBookAuthor: {
         fontSize,
-        color: themeModeColor(300),
+        color: themeModeColor(200),
       },
       cardBookImage: {
         width: 60,
@@ -120,26 +122,34 @@ export const useStyles = () => {
         borderRadius: 10,
       },
       cardUserAvatar: { width: 40, height: 40, borderRadius: 100 },
+      //? Card > Content
       cardContent: {
-        marginBottom: 12,
         width: "100%",
-        paddingVertical: 8,
+        paddingVertical: 16,
         flexWrap: "wrap",
         flex: 1,
         flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
       },
       cardContentText: {
         color: themeModeColor(100),
       },
+      //? Card > Footer
       cardFooter: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         flex: 1,
         width: "100%",
-        borderTopColor: "gray",
+        borderTopColor: themeModeColor(500),
         borderTopWidth: 1,
         paddingVertical: 8,
+      },
+      cardFooterInteractionButtons: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
       },
       cardFooterContainer: {
         flexDirection: "row",
@@ -220,7 +230,7 @@ export const useStyles = () => {
       //! Only Android
       pickerButton: {
         borderWidth: 1,
-        borderColor: "gray",
+        borderColor: themeModeColor(500),
         padding: 12,
         borderRadius: 8,
         backgroundColor: themeModeColor(800),
@@ -256,10 +266,107 @@ export const useStyles = () => {
         fontWeight: "bold",
         paddingVertical: 0,
         height: platform == "ios" ? 100 : 0,
+        backgroundColor: themeModeColor(900, 40),
+        // borderWidth: 1,
+        marginVertical: 10,
+        borderRadius: 16,
       },
     });
   };
+
+  const settingsStyles = ({ fontSize = 16, show = false }: StyleProps) => {
+    return StyleSheet.create({
+      //? AccountInformation
+      profileImageContainer: {
+        alignItems: "center",
+        marginBottom: 20,
+        shadowColor: themeModeColor(50),
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+      },
+      profileImage: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        shadowColor: themeModeColor(50),
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+      },
+      cameraIconContainer: {
+        position: "absolute",
+        bottom: -10,
+        right: "35%",
+        backgroundColor: Colors.colors.primary,
+        borderRadius: 20,
+        padding: 8,
+        shadowColor: themeModeColor(50),
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+      },
+      nameProvider: {
+        flexDirection: "row",
+        flex: 1,
+        justifyContent: "space-between",
+        gap: 6,
+      },
+      label: {
+        marginBottom: 5,
+        fontSize,
+        color: themeModeColor(50),
+      },
+      dateTouchable: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: themeModeColor(800),
+        padding: 12,
+        borderColor: themeModeColor(500),
+        borderWidth: 1,
+        borderBottomWidth: show ? 0 : 1,
+        borderTopRightRadius: 8,
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: Platform.OS === "ios" && show ? 0 : 8,
+        borderBottomRightRadius: Platform.OS === "ios" && show ? 0 : 8,
+      },
+      dateText: {
+        fontSize,
+        color: themeModeColor(50),
+      },
+      dateContent: {
+        backgroundColor: themeModeColor(800),
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
+        borderColor: show ? themeModeColor(500) : "transparent",
+        borderWidth: show ? 1 : 0,
+        borderTopWidth: show ? 0 : 0,
+      },
+      preferenceRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flex: 1,
+        // marginTop: Platform.OS === "ios" ? 0 : 8,
+        marginBottom: Platform.OS === "ios" ? 0 : 8,
+      },
+      preferenceRowLabel: {
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        paddingVertical: 10,
+      },
+      preferenceRowLabelText: {
+        marginHorizontal: 10,
+        minWidth: 50,
+        color: themeModeColor(50),
+      },
+    });
+  };
+
   return {
     styles,
+    settingsStyles,
   };
 };

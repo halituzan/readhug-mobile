@@ -8,6 +8,10 @@ import CommentCard from "./CommentCard";
 import Comment from "./Icons/Comment";
 import Heart from "./Icons/Heart";
 import RHInput from "./RHInput";
+import Card from "./Card";
+import CardHeader from "./Card/CardHeader";
+import CardContent from "./Card/CardContent";
+import CardFooter from "./Card/CardFooter";
 
 const Post = ({ post }: any) => {
   const { styles: appStyle } = useStyles();
@@ -16,8 +20,8 @@ const Post = ({ post }: any) => {
   const [newComment, setNewComment] = useState<string>("");
 
   return (
-    <View style={style.card}>
-      <View style={style.cardHeader}>
+    <Card>
+      <CardHeader>
         <Image
           source={
             post?.book?.bookId?.images?.thumbnail
@@ -41,38 +45,42 @@ const Post = ({ post }: any) => {
             />
           </View>
         </View>
-      </View>
-      <View style={style.cardContent}>
+      </CardHeader>
+      <CardContent>
         <Text style={style.cardContentText}>{post.content}</Text>
-      </View>
-      <View style={style.cardFooter}>
-        <View style={style.cardFooterContainer}>
-          <Heart
-            color={Colors.colors.primary}
-            likedColor={post.isLiked ? Colors.colors.primary : "none"}
-          />
-          <Text style={appStyle({ fontSize: 14 }).cardFooterContainer}>
-            {post.likeCount}
-          </Text>
+      </CardContent>
+
+      <CardFooter>
+        {/* Interaction Buttons */}
+        <View style={style.cardFooterInteractionButtons}>
+          <View style={style.cardFooterContainer}>
+            <Heart
+              color={Colors.colors.primary}
+              likedColor={post.isLiked ? Colors.colors.primary : "none"}
+            />
+            <Text style={style.cardFooterInteraction}>{post.likeCount}</Text>
+          </View>
+          <Pressable
+            onPress={() => {
+              setOpenMessage(!openMessage);
+            }}
+            style={style.cardFooterContainer}
+          >
+            <Comment
+              color={Colors.colors.primary}
+              messageColor={
+                post.commentCount > 0 ? Colors.colors.primary : "none"
+              }
+            />
+            <Text style={style.cardFooterInteraction}>{post.commentCount}</Text>
+          </Pressable>
         </View>
-        <Pressable
-          onPress={() => {
-            setOpenMessage(!openMessage);
-          }}
-          style={style.cardFooterContainer}
-        >
-          <Comment
-            color={Colors.colors.primary}
-            messageColor={
-              post.commentCount > 0 ? Colors.colors.primary : "none"
-            }
-          />
-          <Text style={style.cardFooterInteraction}>{post.commentCount}</Text>
-        </Pressable>
+
         <Text style={appStyle({ fontSize: 12 }).cardFooterDate}>
           {formatDate(post.createdAt)}
         </Text>
-      </View>
+      </CardFooter>
+      {/* Comments */}
       {openMessage && (
         <View>
           <RHInput value={newComment} setValue={setNewComment} label={""} />
@@ -85,12 +93,11 @@ const Post = ({ post }: any) => {
             renderItem={({ item }) => <CommentCard comment={item} />}
             onEndReached={() => {}}
             onEndReachedThreshold={0.5}
-
             // ListFooterComponent={isLoading && <View style={styles.loadingIndicator} />}
           />
         </View>
       )}
-    </View>
+    </Card>
   );
 };
 

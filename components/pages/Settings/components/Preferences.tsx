@@ -1,23 +1,21 @@
-import { StyleSheet, Text, View, ViewStyle } from "react-native";
-import React, { useEffect, useState } from "react";
+import Card from "@/components/ui/Card";
 import PickerComponent from "@/components/ui/Picker";
 import Colors from "@/constants/Colors";
-import { useTheme } from "@/hooks/useTheme";
-import { GlobeIcon, PaletteIcon } from "lucide-react-native";
-import { useDispatch } from "react-redux";
-import { setTheme } from "@/store/features/themeSlice";
 import { useStyles } from "@/hooks/useStyles";
+import { useTheme } from "@/hooks/useTheme";
+import { setTheme } from "@/store/features/themeSlice";
+import { GlobeIcon, PaletteIcon } from "lucide-react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
-type Props = {};
-
-const Preferences = (props: Props) => {
+const Preferences = () => {
   const { theme: appTheme } = useTheme();
-  const { styles: appStyle } = useStyles();
-  const style = appStyle({});
+  const { settingsStyles } = useStyles();
+  const settings = settingsStyles({});
   const dispatch = useDispatch();
   const [themes, setThemes] = useState(appTheme.mode);
   const [language, setLanguage] = useState("tr");
-
   const changeTheme = async () => {
     dispatch(setTheme(themes as "light" | "dark"));
   };
@@ -28,36 +26,11 @@ const Preferences = (props: Props) => {
   }, [themes]);
 
   return (
-    <View style={style.card}>
-      <Text style={appStyle({ fontSize: 18 }).cardTitle}>Tercihler</Text>
-
-      <View style={[styles.preferenceRow]}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            paddingVertical: 10,
-            minWidth: 50,
-          }}
-        >
-          <PaletteIcon
-            style={[
-              styles.buttonIcon,
-              {
-                color: Colors.colors.primary,
-              } as ViewStyle,
-            ]}
-          />
-          <Text
-            style={{
-              color: Colors[appTheme.mode][50],
-              marginRight: 10,
-              minWidth: 50,
-            }}
-          >
-            Tema:
-          </Text>
+    <Card cardTitle='Tercihler'>
+      <View style={settings.preferenceRow}>
+        <View style={settings.preferenceRowLabel}>
+          <PaletteIcon color={Colors.colors.primary} />
+          <Text style={settings.preferenceRowLabelText}>Tema:</Text>
         </View>
         <View style={{ flex: 1 }}>
           <PickerComponent
@@ -70,32 +43,10 @@ const Preferences = (props: Props) => {
           />
         </View>
       </View>
-      <View style={[styles.preferenceRow]}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            paddingVertical: 10,
-          }}
-        >
-          <GlobeIcon
-            style={[
-              styles.buttonIcon,
-              {
-                color: Colors.colors.primary,
-              } as ViewStyle,
-            ]}
-          />
-          <Text
-            style={{
-              color: Colors[appTheme.mode][50],
-              marginRight: 10,
-              minWidth: 50,
-            }}
-          >
-            Dil:
-          </Text>
+      <View style={settings.preferenceRow}>
+        <View style={settings.preferenceRowLabel}>
+          <GlobeIcon color={Colors.colors.primary} />
+          <Text style={settings.preferenceRowLabelText}>Dil:</Text>
         </View>
         <View style={{ flex: 1 }}>
           <PickerComponent
@@ -108,49 +59,8 @@ const Preferences = (props: Props) => {
           />
         </View>
       </View>
-    </View>
+    </Card>
   );
 };
 
 export default Preferences;
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 15,
-  },
-  actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f4f4f4",
-    padding: 12,
-    borderRadius: 8,
-  },
-  buttonIcon: {
-    marginRight: 10,
-  },
-  buttonText: {
-    flex: 1,
-    fontSize: 16,
-  },
-  preferenceRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flex: 1,
-    marginBottom: 15,
-  },
-});

@@ -86,8 +86,8 @@ export default function TabLayout(props: any) {
                       : require("../../assets/placeholder/books/book1.jpg")
                   }
                   style={{
-                    width: 60,
-                    height: 60,
+                    width: 56,
+                    height: 56,
                     borderRadius: 50,
                     objectFit: "cover",
                     position: "absolute",
@@ -140,7 +140,7 @@ const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
       alignItems: "center",
       width: 64,
       height: 64,
-      backgroundColor: Colors?.colors.primary,
+      backgroundColor: Colors[theme.mode][950],
       borderRadius: 100,
       // shadowColor: "#fff",
       // shadowOffset: { width: 0, height: 0 },

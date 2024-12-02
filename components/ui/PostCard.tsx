@@ -27,13 +27,13 @@ const Post = ({ post }: any) => {
         />
         <View style={style.cardEmptyBlock}></View>
         <View style={style.cardBook}>
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={style.cardBookText}>{post?.book?.bookName}</Text>
             <Text style={style.cardBookAuthor}>
               {post?.book?.bookId?.authors.map((i: any) => i.name).join(" & ")}
             </Text>
           </View>
-          <View>
+          <View style={{ marginLeft: 5}}>
             <Image
               source={{ uri: post?.user?.image }}
               style={style.cardUserAvatar}

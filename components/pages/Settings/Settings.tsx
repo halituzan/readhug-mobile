@@ -1,22 +1,21 @@
 import RHButton from "@/components/ui/RHButton";
 import LocalStorage from "@/connections/LocalStorage";
-import { width } from "@/constants/Theme";
+import { useStyles } from "@/hooks/useStyles";
 import { Eraser, LogOutIcon } from "lucide-react-native";
 import React from "react";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, ScrollView, View } from "react-native";
 import AccountInformation from "./components/AccountInformation";
 import PasswordChange from "./components/PasswordChange";
 import Preferences from "./components/Preferences";
-import { useStyles } from "@/hooks/useStyles";
 
 const SettingsPage = () => {
   const clearLocalStorage = async () => {
     await LocalStorage.remove("theme");
   };
-  const { styles: appStyle } = useStyles();
-  const style= appStyle({})
+  const { pageStyle } = useStyles();
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={pageStyle({}).container}>
       {/* Kullanıcı Bilgileri */}
       <AccountInformation />
       {/* Tercihler */}
@@ -29,14 +28,14 @@ const SettingsPage = () => {
       <RHButton
         text={"Çıkış"}
         onPress={() => {}}
-        icon={<LogOutIcon color='white' style={styles.buttonIcon} />}
+        icon={<LogOutIcon color='white' style={{ marginRight: 10 }} />}
         isDanger={true}
       />
       <View style={{ marginVertical: 10 }}></View>
       <RHButton
         text={"Clear LocalStorage"}
         onPress={clearLocalStorage}
-        icon={<Eraser color='white' style={styles.buttonIcon} />}
+        icon={<Eraser color='white' style={{ marginRight: 10 }} />}
         isDanger={true}
       />
 
@@ -45,16 +44,5 @@ const SettingsPage = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-    width,
-  },
-
-  buttonIcon: {
-    marginRight: 10,
-  },
-});
 
 export default SettingsPage;

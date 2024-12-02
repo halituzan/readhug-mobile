@@ -90,6 +90,7 @@ export const GlobalStyles = {
     shadowOffset: { width: 0, height: 2 } as ViewStyle,
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    height: "auto",
   } as ViewStyle,
   Shadow: {
     shadowColor: "#fff",

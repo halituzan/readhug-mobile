@@ -3,7 +3,7 @@ import NotificationIcon from "@/components/ui/Icons/NotificationIcon";
 import Settings from "@/components/ui/Icons/Settings";
 import TimeLine from "@/components/ui/Icons/TimeLine";
 import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
+import { useStyles } from "@/hooks/useStyles";
 import { useTheme } from "@/hooks/useTheme";
 import { selectUser } from "@/store/features/userSlice";
 import { Tabs } from "expo-router";
@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 
 export default function TabLayout(props: any) {
   const { theme } = useTheme();
+  const { pageStyle } = useStyles();
+  const style = pageStyle({});
   const user = useSelector(selectUser);
 
   return (
@@ -23,10 +25,6 @@ export default function TabLayout(props: any) {
           tabStyles,
           {
             backgroundColor: Colors[theme.mode][900],
-            // shadowColor: Colors[theme.mode].contrastText,
-            // shadowOffset: { width: 0, height: 0 } as ViewStyle,
-            // shadowOpacity: 0.1,
-            // shadowRadius: 4,
           } as ViewStyle,
         ],
         tabBarHideOnKeyboard: true,
@@ -69,29 +67,15 @@ export default function TabLayout(props: any) {
           title: "Profile",
           tabBarShowLabel: false,
           tabBarButton: ({ onPress, focused }: any) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "transparent",
-                position: "relative",
-              }}
-            >
-              <ProfileBarButton onPress={onPress} Colors={Colors} theme={theme}>
+            <View style={style.profileBar}>
+              <ProfileBarButton onPress={onPress}>
                 <Image
                   source={
                     user.image
                       ? { uri: user.image }
                       : require("../../assets/placeholder/books/book1.jpg")
                   }
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 50,
-                    objectFit: "cover",
-                    position: "absolute",
-                  }}
+                  style={style.profileBarImage}
                 />
               </ProfileBarButton>
             </View>
@@ -130,30 +114,17 @@ export default function TabLayout(props: any) {
   );
 }
 
-const ProfileBarButton = ({ children, onPress, tab, Colors, theme }: any) => (
-  <Pressable
-    onPress={onPress}
-    style={{
-      top: Platform.OS == "ios" ? -8 : -22,
-      left: "auto",
-      justifyContent: "center",
-      alignItems: "center",
-      width: 64,
-      height: 64,
-      backgroundColor: Colors[theme.mode][950],
-      borderRadius: 100,
-      // shadowColor: "#fff",
-      // shadowOffset: { width: 0, height: 0 },
-      // shadowOpacity: 0.5,
-      // shadowRadius: 3,
-    }}
-  >
-    {children}
-  </Pressable>
-);
+const ProfileBarButton = ({ children, onPress }: any) => {
+  const { pageStyle } = useStyles();
+  const style = pageStyle({});
+  return (
+    <Pressable onPress={onPress} style={style.profileBarButton}>
+      {children}
+    </Pressable>
+  );
+};
 
 const tabStyles = {
-  // ...GlobalStyles.Shadow,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",

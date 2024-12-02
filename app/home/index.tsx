@@ -1,14 +1,14 @@
 import Post from "@/components/ui/PostCard";
-import Colors from "@/constants/Colors";
-import { useTheme } from "@/hooks/useTheme";
+import { useStyles } from "@/hooks/useStyles";
 import { GetAllBooks } from "@/services/book/getAllBook";
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 
 export default function Index() {
-  const { theme } = useTheme();
+  const { pageStyle } = useStyles();
+  const style = pageStyle({});
   const [posts, setPosts] = useState<any>([]);
   const [page, setPage] = useState(1);
 
@@ -25,9 +25,7 @@ export default function Index() {
   }, []);
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: Colors[theme.mode][950] }]}
-    >
+    <SafeAreaView style={style.safeArea}>
       <FlatList
         contentContainerStyle={{ paddingBottom: 80, paddingTop: 80 }} // Tab bar yüksekliğine göre padding
         data={posts}
@@ -42,8 +40,3 @@ export default function Index() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

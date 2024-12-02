@@ -81,6 +81,7 @@ export const useStyles = () => {
       card: {
         ...GlobalStyles.Card,
         backgroundColor: themeModeColor(800),
+        height: "auto",
       },
       cardTitle: {
         fontSize,
@@ -273,7 +274,6 @@ export const useStyles = () => {
       },
     });
   };
-
   const settingsStyles = ({ fontSize = 16, show = false }: StyleProps) => {
     return StyleSheet.create({
       //? AccountInformation
@@ -342,6 +342,7 @@ export const useStyles = () => {
         borderColor: show ? themeModeColor(500) : "transparent",
         borderWidth: show ? 1 : 0,
         borderTopWidth: show ? 0 : 0,
+        marginBottom: 8,
       },
       preferenceRow: {
         flexDirection: "row",
@@ -364,9 +365,66 @@ export const useStyles = () => {
       },
     });
   };
+  const pageStyle = ({}) => {
+    return StyleSheet.create({
+      container: {
+        flex: 1,
+        padding: 15,
+        width,
+      },
+
+      safeArea: {
+        ...GlobalStyles.flexFullCenter,
+        backgroundColor: themeModeColor(950),
+      },
+      tabStyles: {
+        backgroundColor: themeModeColor(900),
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderRadius: 20,
+        borderWidth: 0,
+        borderColor: "transparent",
+        padding: 0,
+        marginHorizontal: 15,
+        position: "absolute",
+        bottom: Platform.OS == "ios" ? 40 : 30,
+        zIndex: 10,
+        elevation: 5,
+        flex: 1,
+        height: 50,
+      },
+      profileBar: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+        position: "relative",
+      },
+      profileBarImage: {
+        width: 56,
+        height: 56,
+        borderRadius: 50,
+        objectFit: "cover",
+        position: "absolute",
+      },
+      profileBarButton: {
+        top: Platform.OS == "ios" ? -8 : -22,
+        left: "auto",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 64,
+        height: 64,
+        backgroundColor: themeModeColor(950),
+        borderRadius: 100,
+      },
+    });
+  };
 
   return {
     styles,
     settingsStyles,
+    pageStyle,
   };
 };

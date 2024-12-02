@@ -1,27 +1,13 @@
 import SettingsPage from "@/components/pages/Settings/Settings";
-import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
-import { useTheme } from "@/hooks/useTheme";
-import { Link } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import { useStyles } from "@/hooks/useStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
-  const { theme } = useTheme();
+  const { pageStyle } = useStyles();
+  const style = pageStyle({});
   return (
-    <SafeAreaView
-      style={[
-        GlobalStyles.flexFullCenter,
-        { backgroundColor: Colors[theme.mode][950] },
-      ]}
-    >
+    <SafeAreaView style={style.safeArea}>
       <SettingsPage />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    color: Colors.colors.primary,
-  },
-});

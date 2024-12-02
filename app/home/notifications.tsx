@@ -1,27 +1,14 @@
-import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
-import { useTheme } from "@/hooks/useTheme";
-import { Link } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import { useStyles } from "@/hooks/useStyles";
+import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function NotificationScreen() {
-  const { theme } = useTheme();
+  const { pageStyle } = useStyles();
+  const style = pageStyle({});
   return (
-    <SafeAreaView
-      style={[
-        GlobalStyles.flexFullCenter,
-        { backgroundColor: Colors[theme.mode][950] },
-      ]}
-    >
-      <Text style={styles.text}>Notification Screen</Text>
-      <Link href='/home'>Go to About screen</Link>
+    <SafeAreaView style={style.safeArea}>
+      <Text>Notification Screen</Text>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  text: {
-    color: Colors.colors.primary,
-  },
-});

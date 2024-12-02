@@ -1,4 +1,3 @@
-import { View } from "@/components/Themed";
 import BookIcon from "@/components/ui/Icons/BookIcon";
 import NotificationIcon from "@/components/ui/Icons/NotificationIcon";
 import Settings from "@/components/ui/Icons/Settings";
@@ -9,7 +8,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { selectUser } from "@/store/features/userSlice";
 import { Tabs } from "expo-router";
 import React from "react";
-import { Image, Platform, Pressable, ViewStyle } from "react-native";
+import { Image, Platform, Pressable, View, ViewStyle } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function TabLayout(props: any) {

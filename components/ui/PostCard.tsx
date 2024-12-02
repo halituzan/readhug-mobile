@@ -1,123 +1,62 @@
 // components/PostCard.tsx
-import { GlobalStyles } from "@/constants/Theme";
+import Colors from "@/constants/Colors";
+import { useStyles } from "@/hooks/useStyles";
 import { formatDate } from "@/lib/formatDate";
 import React, { useState } from "react";
-import {
-  FlatList,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 import CommentCard from "./CommentCard";
 import Comment from "./Icons/Comment";
 import Heart from "./Icons/Heart";
-import { Input } from "./Input";
-import { useTheme } from "@/hooks/useTheme";
-import Colors from "@/constants/Colors";
+import RHInput from "./RHInput";
 
 const Post = ({ post }: any) => {
-  const { theme } = useTheme();
+  const { styles } = useStyles();
   const [openMessage, setOpenMessage] = useState(false);
   const [newComment, setNewComment] = useState<string>("");
-
+  const style = styles({});
   return (
-    <View
-      style={[
-        GlobalStyles.Card,
-        {
-          backgroundColor: Colors[theme.mode][800],
-        },
-      ]}
-    >
-      <View style={styles.header}>
+    <View style={style.card}>
+      <View style={style.cardHeader}>
         <Image
           source={
             post?.book?.bookId?.images?.thumbnail
               ? { uri: post?.book?.bookId?.images?.thumbnail }
               : require("../../assets/placeholder/books/book-placeholder.png")
           }
-          style={styles.bookImage}
+          style={style.cardBookImage}
         />
-        <View
-          style={{
-            minWidth: 75,
-            minHeight: 60,
-            width: 75,
-            height: 60,
-          }}
-        ></View>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flex: 1,
-          }}
-        >
+        <View style={style.cardEmptyBlock}></View>
+        <View style={style.cardBook}>
           <View>
-            <Text
-              style={[
-                styles.title,
-                {
-                  color: Colors[theme.mode][100],
-                },
-              ]}
-            >
-              {post?.book?.bookName}
-            </Text>
-            <Text
-              style={[
-                styles.author,
-                {
-                  color: Colors[theme.mode][300],
-                },
-              ]}
-            >
+            <Text style={style.cardBookText}>{post?.book?.bookName}</Text>
+            <Text style={style.cardBookAuthor}>
               {post?.book?.bookId?.authors.map((i: any) => i.name).join(" & ")}
             </Text>
           </View>
           <View>
             <Image
               source={{ uri: post?.user?.image }}
-              style={{ width: 40, height: 40, borderRadius: 100 }}
+              style={style.cardUserAvatar}
             />
           </View>
         </View>
       </View>
-      <View style={styles.content}>
-        <Text
-          style={{
-            color: Colors[theme.mode][100],
-          }}
-        >
-          {post.content}
-        </Text>
+      <View style={style.cardContent}>
+        <Text style={style.cardContentText}>{post.content}</Text>
       </View>
-      <View style={styles.footer}>
-        <View style={styles.interactionContainer}>
+      <View style={style.cardFooter}>
+        <View style={style.cardFooterContainer}>
           <Heart
             color={Colors.colors.primary}
             likedColor={post.isLiked ? Colors.colors.primary : "none"}
           />
-          <Text
-            style={[
-              styles.interactionCount,
-              {
-                color: Colors[theme.mode][300],
-              },
-            ]}
-          >
-            {post.likeCount}
-          </Text>
+          <Text style={style.cardFooterInteraction}>{post.likeCount}</Text>
         </View>
         <Pressable
           onPress={() => {
             setOpenMessage(!openMessage);
           }}
-          style={styles.interactionContainer}
+          style={style.cardFooterContainer}
         >
           <Comment
             color={Colors.colors.primary}
@@ -125,36 +64,13 @@ const Post = ({ post }: any) => {
               post.commentCount > 0 ? Colors.colors.primary : "none"
             }
           />
-          <Text
-            style={[
-              styles.interactionCount,
-              {
-                color: Colors[theme.mode][300],
-              },
-            ]}
-          >
-            {post.commentCount}
-          </Text>
+          <Text style={style.cardFooterInteraction}>{post.commentCount}</Text>
         </Pressable>
-        <Text
-          style={[
-            styles.timestamp,
-            {
-              color: Colors[theme.mode][300],
-            },
-          ]}
-        >
-          {formatDate(post.createdAt)}
-        </Text>
+        <Text style={style.cardFooterDate}>{formatDate(post.createdAt)}</Text>
       </View>
       {openMessage && (
         <View>
-          <Input
-            value={newComment}
-            onChangeText={setNewComment}
-            label={""}
-            className='border'
-          />
+          <RHInput value={newComment} setValue={setNewComment} label={""} />
           <FlatList
             style={{ paddingVertical: 30 }}
             data={post.comments}
@@ -172,78 +88,5 @@ const Post = ({ post }: any) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 32,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    width: "100%",
-    flex: 1,
-    position: "relative",
-  },
-  bookImage: {
-    width: 60,
-    height: 90,
-    position: "absolute",
-    top: -30,
-    borderRadius: 10,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    borderBottomColor: "gray",
-    borderBottomWidth: 2,
-    paddingBottom: 8,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  author: {
-    fontSize: 14,
-    color: "#7B8794",
-  },
-  content: {
-    fontSize: 18,
-    color: "#333",
-    marginBottom: 12,
-    width: "100%",
-    paddingVertical: 8,
-    flexWrap: "wrap",
-    flex: 1,
-    flexDirection: "row",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flex: 1,
-    width: "100%",
-    borderTopColor: "gray",
-    borderTopWidth: 1,
-    paddingVertical: 8,
-  },
-  interactionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  interactionCount: {
-    marginLeft: 4,
-    fontSize: 14,
-    color: "#7B8794",
-  },
-  timestamp: {
-    fontSize: 12,
-    color: "#7B8794",
-  },
-});
 
 export default Post;

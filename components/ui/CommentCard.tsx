@@ -1,7 +1,5 @@
 import React from "react";
-import { View } from "../Themed";
-import UIText from "./UIText";
-import { Image, StyleSheet, Text } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { formatDate } from "@/lib/formatDate";
 import { useTheme } from "@/hooks/useTheme";
 import Colors from "@/constants/Colors";

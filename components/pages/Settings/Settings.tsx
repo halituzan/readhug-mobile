@@ -1,18 +1,18 @@
+import RHButton from "@/components/ui/RHButton";
+import LocalStorage from "@/connections/LocalStorage";
 import { width } from "@/constants/Theme";
-import { LogOutIcon } from "lucide-react-native";
+import { Eraser, LogOutIcon } from "lucide-react-native";
 import React from "react";
-import {
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import AccountInformation from "./components/AccountInformation";
 import PasswordChange from "./components/PasswordChange";
 import Preferences from "./components/Preferences";
 
 const SettingsPage = () => {
+  const clearLocalStorage = async () => {
+    await LocalStorage.remove("theme");
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Kullanıcı Bilgileri */}
@@ -23,10 +23,22 @@ const SettingsPage = () => {
       <PasswordChange />
 
       {/* Çıkış Butonu */}
-      <TouchableOpacity style={styles.logoutButton}>
-        <LogOutIcon color='white' style={styles.buttonIcon} />
-        <Text style={styles.logoutButtonText}>Çıkış Yap</Text>
-      </TouchableOpacity>
+
+      <RHButton
+        text={"Çıkış"}
+        onPress={() => {}}
+        icon={<LogOutIcon color='white' style={styles.buttonIcon} />}
+        isDanger={true}
+      />
+      <View style={{ marginVertical: 10 }}></View>
+      <RHButton
+        text={"Clear LocalStorage"}
+        onPress={clearLocalStorage}
+        icon={<Eraser color='white' style={styles.buttonIcon} />}
+        isDanger={true}
+      />
+
+      <View style={{ paddingBottom: Platform.OS == "ios" ? 100 : 130 }}></View>
     </ScrollView>
   );
 };
@@ -36,36 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     width,
-    paddingBottom: 80,
   },
-  actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f4f4f4",
-    padding: 12,
-    borderRadius: 8,
-  },
+
   buttonIcon: {
     marginRight: 10,
-  },
-  buttonText: {
-    flex: 1,
-    fontSize: 16,
-  },
-  logoutButton: {
-    flexDirection: "row",
-    backgroundColor: "#dc3545",
-    padding: 15,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: Platform.OS == "ios" ? 90 : 120,
-  },
-  logoutButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    marginLeft: 10,
-    fontSize: 16,
   },
 });
 

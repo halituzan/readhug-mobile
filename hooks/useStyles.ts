@@ -11,6 +11,8 @@ interface StyleProps {
   colorOpacity?: OpacityTypes;
   isDisable?: boolean;
   isLastChild?: boolean;
+  isDanger?: boolean;
+  isOk?: boolean;
 }
 
 export const useStyles = () => {
@@ -23,8 +25,14 @@ export const useStyles = () => {
     colorOpacity,
     isDisable,
     isLastChild,
+    isDanger,
+    isOk,
   }: StyleProps) => {
     return StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: themeModeColor(700),
+      },
       // TODO: UI Components
       //? Input
       input: {
@@ -51,13 +59,20 @@ export const useStyles = () => {
         padding: 10,
         borderRadius: 10,
         height: 48,
-        backgroundColor: isDisable
+        backgroundColor: isDanger
+          ? Colors.colors.danger
+          : isDisable
           ? themeModeColor(600)
           : Colors.colors.primary,
       },
       buttonText: {
         fontSize: 16,
-        color: isDisable ? themeModeColor(50) : themeModeColor(900),
+        color: "white",
+        // color: isDanger
+        //   ? "white"
+        //   : isDisable
+        //   ? themeModeColor(50)
+        //   : themeModeColor(900),
       },
       //? Card
       card: {
@@ -130,6 +145,68 @@ export const useStyles = () => {
       cardFooterDate: {
         fontSize: 12,
         color: themeModeColor(300),
+      },
+      //? Welcome Screen
+      options: {
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 20,
+      },
+      optionButton: {
+        backgroundColor: themeModeColor(50),
+        padding: 15,
+        borderRadius: 8,
+        marginHorizontal: 10,
+      },
+      optionText: {
+        color: "white",
+      },
+      optionSelected: {
+        backgroundColor: isOk ? Colors.colors.primary : themeModeColor(500),
+      },
+      welcomeLogo: {
+        width: 100,
+        height: 90,
+        marginBottom: 20,
+      },
+      //? Slide
+      slide: {
+        width: "100%",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 30,
+      },
+      slideTitle: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: themeModeColor(100),
+        textAlign: "center",
+        marginBottom: 20,
+      },
+      slideSubtitle: {
+        fontSize: 16,
+        color: themeModeColor(50),
+        textAlign: "center",
+      },
+      pagination: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 30,
+      },
+      paginationDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 15,
+        backgroundColor: themeModeColor(900),
+        marginHorizontal: 5,
+      },
+      paginationDotActive: {
+        backgroundColor: Colors.colors.primary,
+        width: 12,
+        height: 12,
+        borderRadius: 15,
       },
 
       //! Only Android

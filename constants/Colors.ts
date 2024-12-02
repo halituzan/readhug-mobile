@@ -1,10 +1,12 @@
 const tintColorLight = "#f97316";
 const tintColorDark = "#d1d5db";
+const tintColorDanger = "#dc2626";
 
 export default {
   colors: {
     primary: tintColorLight,
     secondary: tintColorDark,
+    danger: tintColorDanger,
   },
 
   light: {

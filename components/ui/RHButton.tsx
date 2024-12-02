@@ -8,26 +8,41 @@ type Props = {
   loading?: boolean;
   text: React.ReactNode;
   onPress: () => void;
+  isDanger?: boolean;
+  icon?: React.ReactNode;
 };
 
-const RHButton = ({ text, loading, onPress, isDisable }: Props) => {
+const RHButton = ({
+  text,
+  loading,
+  onPress,
+  isDisable = false,
+  isDanger = false,
+  icon,
+}: Props) => {
   const { styles } = useStyles();
-  const buttonStyles = styles({ isDisable }).button;
-  const buttonTextStyles = styles({ isDisable }).buttonText;
   return (
-    <View style={{ flex: 1 }}>
-      <TouchableOpacity
-        style={buttonStyles}
-        onPress={onPress}
-        disabled={isDisable || loading}
-      >
-        {loading ? (
-          <ActivityIndicator color={Colors.colors.primary} />
-        ) : (
-          <Text style={buttonTextStyles}>{text}</Text>
-        )}
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles({ isDisable, isDanger }).button}
+      onPress={onPress}
+      disabled={isDisable || loading}
+    >
+      {loading ? (
+        <ActivityIndicator color={Colors.colors.primary} />
+      ) : (
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {icon && icon}
+          <Text style={styles({ isDisable, isDanger }).buttonText}>{text}</Text>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 };
 

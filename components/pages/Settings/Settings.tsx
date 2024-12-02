@@ -7,12 +7,14 @@ import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import AccountInformation from "./components/AccountInformation";
 import PasswordChange from "./components/PasswordChange";
 import Preferences from "./components/Preferences";
+import { useStyles } from "@/hooks/useStyles";
 
 const SettingsPage = () => {
   const clearLocalStorage = async () => {
     await LocalStorage.remove("theme");
   };
-
+  const { styles: appStyle } = useStyles();
+  const style= appStyle({})
   return (
     <ScrollView style={styles.container}>
       {/* Kullanıcı Bilgileri */}

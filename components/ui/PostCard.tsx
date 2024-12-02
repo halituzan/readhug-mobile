@@ -10,10 +10,11 @@ import Heart from "./Icons/Heart";
 import RHInput from "./RHInput";
 
 const Post = ({ post }: any) => {
-  const { styles } = useStyles();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   const [openMessage, setOpenMessage] = useState(false);
   const [newComment, setNewComment] = useState<string>("");
-  const style = styles({});
+
   return (
     <View style={style.card}>
       <View style={style.cardHeader}>
@@ -29,11 +30,11 @@ const Post = ({ post }: any) => {
         <View style={style.cardBook}>
           <View style={{ flex: 1 }}>
             <Text style={style.cardBookText}>{post?.book?.bookName}</Text>
-            <Text style={style.cardBookAuthor}>
+            <Text style={appStyle({ fontSize: 14 }).cardBookAuthor}>
               {post?.book?.bookId?.authors.map((i: any) => i.name).join(" & ")}
             </Text>
           </View>
-          <View style={{ marginLeft: 5}}>
+          <View style={{ marginLeft: 5 }}>
             <Image
               source={{ uri: post?.user?.image }}
               style={style.cardUserAvatar}
@@ -50,7 +51,9 @@ const Post = ({ post }: any) => {
             color={Colors.colors.primary}
             likedColor={post.isLiked ? Colors.colors.primary : "none"}
           />
-          <Text style={style.cardFooterInteraction}>{post.likeCount}</Text>
+          <Text style={appStyle({ fontSize: 14 }).cardFooterContainer}>
+            {post.likeCount}
+          </Text>
         </View>
         <Pressable
           onPress={() => {
@@ -66,7 +69,9 @@ const Post = ({ post }: any) => {
           />
           <Text style={style.cardFooterInteraction}>{post.commentCount}</Text>
         </Pressable>
-        <Text style={style.cardFooterDate}>{formatDate(post.createdAt)}</Text>
+        <Text style={appStyle({ fontSize: 12 }).cardFooterDate}>
+          {formatDate(post.createdAt)}
+        </Text>
       </View>
       {openMessage && (
         <View>

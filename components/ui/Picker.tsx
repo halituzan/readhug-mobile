@@ -11,11 +11,12 @@ type Props = {
 };
 
 const PickerComponent = ({ value, setValue, label, items }: Props) => {
-  const { styles } = useStyles();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   const platform = Platform.OS;
   return platform == "ios" ? (
     <PickerIOS
-      itemStyle={styles({}).pickerItem}
+      itemStyle={style.pickerItem}
       selectedValue={value}
       onValueChange={(itemValue) => setValue(itemValue)}
     >

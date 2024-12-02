@@ -6,11 +6,14 @@ import { useTheme } from "@/hooks/useTheme";
 import { GlobeIcon, PaletteIcon } from "lucide-react-native";
 import { useDispatch } from "react-redux";
 import { setTheme } from "@/store/features/themeSlice";
+import { useStyles } from "@/hooks/useStyles";
 
 type Props = {};
 
 const Preferences = (props: Props) => {
   const { theme: appTheme } = useTheme();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   const dispatch = useDispatch();
   const [themes, setThemes] = useState(appTheme.mode);
   const [language, setLanguage] = useState("tr");
@@ -25,24 +28,8 @@ const Preferences = (props: Props) => {
   }, [themes]);
 
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: Colors[appTheme.mode][700],
-        },
-      ]}
-    >
-      <Text
-        style={[
-          styles.cardTitle,
-          {
-            color: Colors[appTheme.mode][50],
-          },
-        ]}
-      >
-        Tercihler
-      </Text>
+    <View style={style.card}>
+      <Text style={appStyle({ fontSize: 18 }).cardTitle}>Tercihler</Text>
 
       <View style={[styles.preferenceRow]}>
         <View

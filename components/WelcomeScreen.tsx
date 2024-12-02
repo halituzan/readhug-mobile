@@ -63,7 +63,9 @@ export default function WelcomeScreen() {
       id: "2",
       content: (
         <View style={style.slide}>
-          <Text style={style.slideTitle}>Customize Your Experience</Text>
+          <Text style={appStyle({ fontSize: 24 }).slideTitle}>
+            Customize Your Experience
+          </Text>
           <Text style={style.slideSubtitle}>
             Select your preferred theme and language.
           </Text>

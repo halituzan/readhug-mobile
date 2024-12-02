@@ -29,10 +29,10 @@ const RHInput = ({
   keyboardType,
   ...props
 }: RHInputProps) => {
-  const { styles } = useStyles();
-
-  const inputStyles = styles({}).input;
-  const labelStyles = styles({}).label;
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
+  const inputStyles = style.input;
+  const labelStyles = style.label;
 
   return (
     <View style={{ flex: 1 }}>

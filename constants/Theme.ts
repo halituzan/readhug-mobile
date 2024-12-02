@@ -84,8 +84,8 @@ export const GlobalStyles = {
   } as ViewStyle,
   Card: {
     padding: 15,
-    paddingBottom: 0,
     marginBottom: 25,
+    borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 } as ViewStyle,
     shadowOpacity: 0.1,

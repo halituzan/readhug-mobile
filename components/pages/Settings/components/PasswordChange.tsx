@@ -9,30 +9,17 @@ import React from "react";
 import { ChevronRight, Lock } from "lucide-react-native";
 import Colors from "@/constants/Colors";
 import { useTheme } from "@/hooks/useTheme";
+import { useStyles } from "@/hooks/useStyles";
 
 type Props = {};
 
 const PasswordChange = (props: Props) => {
   const { theme: appTheme } = useTheme();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: Colors[appTheme.mode][700],
-        },
-      ]}
-    >
-      <Text
-        style={[
-          styles.cardTitle,
-          {
-            color: Colors[appTheme.mode][50],
-          },
-        ]}
-      >
-        Şifre İşlemleri
-      </Text>
+    <View style={[style.card]}>
+      <Text style={appStyle({ fontSize: 18 }).cardTitle}>Şifre İşlemleri</Text>
       <TouchableOpacity
         style={[
           styles.actionButton,

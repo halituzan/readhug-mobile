@@ -9,33 +9,33 @@ type Props = {
 };
 
 const CustomPicker = ({ value, setValue, items }: Props) => {
-  const { styles } = useStyles();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   const [modalVisible, setModalVisible] = useState(false);
   const currentValue = items.find((i: any) => i.value == value)?.label ?? "";
-  const appStyle = styles({});
   return (
     <>
       <TouchableOpacity
-        style={appStyle.pickerButton}
+        style={style.pickerButton}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={appStyle.selectedValue}>
+        <Text style={style.selectedValue}>
           {currentValue || "Select an item"}
         </Text>
       </TouchableOpacity>
       <Modal transparent animationType='fade' visible={modalVisible}>
         <TouchableOpacity
           onPress={() => setModalVisible(false)}
-          style={appStyle.pickerModalContainer}
+          style={style.pickerModalContainer}
         >
-          <View style={appStyle.pickerModalContent}>
+          <View style={style.pickerModalContent}>
             <FlatList
               data={items}
               keyExtractor={(item) => item.value}
               renderItem={({ item, index }) => (
                 <TouchableOpacity
                   style={
-                    styles({ isLastChild: items.length - 1 !== index })
+                    appStyle({ isLastChild: items.length - 1 !== index })
                       .pickerModalItem
                   }
                   onPress={() => {
@@ -43,7 +43,7 @@ const CustomPicker = ({ value, setValue, items }: Props) => {
                     setModalVisible(false);
                   }}
                 >
-                  <Text style={appStyle.pickerModalItemText}>{item.label}</Text>
+                  <Text style={style.pickerModalItemText}>{item.label}</Text>
                 </TouchableOpacity>
               )}
             />

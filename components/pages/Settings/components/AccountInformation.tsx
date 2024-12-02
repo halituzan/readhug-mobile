@@ -19,11 +19,14 @@ import * as ImagePicker from "expo-image-picker";
 import RHButton from "@/components/ui/RHButton";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/store/features/userSlice";
+import { useStyles } from "@/hooks/useStyles";
 
 type Props = {};
 
 const AccountInformation = (props: Props) => {
   const { theme: appTheme } = useTheme();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   const user = useSelector(selectUser);
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setfirstName] = useState(user.firstName);
@@ -68,25 +71,10 @@ const AccountInformation = (props: Props) => {
   useEffect(() => {
     const data = buttonControl();
     setIsDisableButton(data);
-    console.log(data, "isDisabled");
   }, [firstName, lastName, userName, gender, birthDate]);
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: Colors[appTheme.mode][700],
-        },
-      ]}
-    >
-      <Text
-        style={[
-          styles.cardTitle,
-          {
-            color: Colors[appTheme.mode][50],
-          },
-        ]}
-      >
+    <View style={style.card}>
+      <Text style={appStyle({ fontSize: 18 }).cardTitle}>
         Kullanıcı Bilgileri
       </Text>
 
@@ -208,7 +196,7 @@ const AccountInformation = (props: Props) => {
       <View style={styles.preferenceRow}>
         <View
           style={{
-            marginTop:10,
+            marginTop: 10,
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",

@@ -20,10 +20,11 @@ const RHButton = ({
   isDanger = false,
   icon,
 }: Props) => {
-  const { styles } = useStyles();
+  const { styles: appStyle } = useStyles();
+  const style = appStyle({});
   return (
     <TouchableOpacity
-      style={styles({ isDisable, isDanger }).button}
+      style={appStyle({ isDisable, isDanger }).button}
       onPress={onPress}
       disabled={isDisable || loading}
     >
@@ -39,7 +40,7 @@ const RHButton = ({
           }}
         >
           {icon && icon}
-          <Text style={styles({ isDisable, isDanger }).buttonText}>{text}</Text>
+          <Text style={appStyle({ isDisable, isDanger }).buttonText}>{text}</Text>
         </View>
       )}
     </TouchableOpacity>

@@ -1,7 +1,7 @@
 import { Platform, StyleSheet } from "react-native";
 import { useTheme } from "./useTheme";
 import { ColorsTypes, OpacityTypes } from "@/constants/types";
-import { GlobalStyles } from "@/constants/Theme";
+import { GlobalStyles, width } from "@/constants/Theme";
 import Colors from "@/constants/Colors";
 
 interface StyleProps {
@@ -13,8 +13,8 @@ interface StyleProps {
   isLastChild?: boolean;
   isDanger?: boolean;
   isOk?: boolean;
+  fontSize?: number;
 }
-
 export const useStyles = () => {
   const { themeModeColor } = useTheme();
   const platform = Platform.OS;
@@ -27,11 +27,13 @@ export const useStyles = () => {
     isLastChild,
     isDanger,
     isOk,
+    fontSize = 16,
   }: StyleProps) => {
     return StyleSheet.create({
       container: {
         flex: 1,
         backgroundColor: themeModeColor(700),
+        width,
       },
       // TODO: UI Components
       //? Input
@@ -51,7 +53,7 @@ export const useStyles = () => {
       label: {
         color: themeModeColor(color ? color : 50),
         marginBottom: 4,
-        fontSize: 16,
+        fontSize,
       },
       //? Button
       button: {
@@ -66,7 +68,7 @@ export const useStyles = () => {
           : Colors.colors.primary,
       },
       buttonText: {
-        fontSize: 16,
+        fontSize,
         color: "white",
         // color: isDanger
         //   ? "white"
@@ -78,6 +80,12 @@ export const useStyles = () => {
       card: {
         ...GlobalStyles.Card,
         backgroundColor: themeModeColor(800),
+      },
+      cardTitle: {
+        fontSize,
+        fontWeight: "bold",
+        marginBottom: 15,
+        color: themeModeColor(50),
       },
       cardEmptyBlock: { minWidth: 75, minHeight: 60, width: 75, height: 60 },
       cardHeader: {
@@ -96,12 +104,12 @@ export const useStyles = () => {
         flex: 1,
       },
       cardBookText: {
-        fontSize: 16,
+        fontSize,
         fontWeight: "bold",
         color: themeModeColor(100),
       },
       cardBookAuthor: {
-        fontSize: 14,
+        fontSize,
         color: themeModeColor(300),
       },
       cardBookImage: {
@@ -139,11 +147,11 @@ export const useStyles = () => {
       },
       cardFooterInteraction: {
         marginLeft: 4,
-        fontSize: 14,
+        fontSize,
         color: themeModeColor(300),
       },
       cardFooterDate: {
-        fontSize: 12,
+        fontSize,
         color: themeModeColor(300),
       },
       //? Welcome Screen
@@ -178,14 +186,14 @@ export const useStyles = () => {
         paddingHorizontal: 30,
       },
       slideTitle: {
-        fontSize: 24,
+        fontSize,
         fontWeight: "bold",
         color: themeModeColor(100),
         textAlign: "center",
         marginBottom: 20,
       },
       slideSubtitle: {
-        fontSize: 16,
+        fontSize,
         color: themeModeColor(50),
         textAlign: "center",
       },
@@ -243,7 +251,7 @@ export const useStyles = () => {
       //! Only IOS
       pickerItem: {
         color: themeModeColor(50),
-        fontSize: 18,
+        fontSize,
         textAlign: "left",
         fontWeight: "bold",
         paddingVertical: 0,

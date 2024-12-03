@@ -13,7 +13,6 @@ const ProfileCard = (props: Props) => {
   const { profileStyle } = useStyles();
   const style = profileStyle({});
   const user = useSelector(selectUser);
-  console.log("user", user);
 
   return (
     <Card

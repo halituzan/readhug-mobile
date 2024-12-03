@@ -26,7 +26,6 @@ export default function WelcomeScreen() {
   const { styles: appStyle } = useStyles();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [themeMode, setThemeMode] = useState("light");
-  console.log("themeMode", themeMode);
 
   const [language, setLanguage] = useState("en");
   const dispatch = useDispatch();

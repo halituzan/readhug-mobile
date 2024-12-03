@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/formatDate";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -8,11 +9,25 @@ const BookItem = ({ item }: any) => (
       console.log("first");
     }}
   >
-    <Image source={item.imageUri} style={styles.image} />
+    <Image
+      source={
+        item?.bookId?.images?.thumbnail
+          ? { uri: item?.bookId?.images?.thumbnail }
+          : require("@/assets/placeholder/books/book-placeholder.png")
+      }
+      style={styles.image}
+    />
     <View style={styles.textContainer}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.author}>{item.author}</Text>
-      <Text style={styles.addedDate}>Added: {item.addedDate}</Text>
+      <Text style={styles.title}>{item?.bookName}</Text>
+      <Text style={styles.author}>
+        {item?.bookId?.authors.map((i: any) => i.name).join(" & ")}
+      </Text>
+      <View>
+        {/* <Slider */}
+      </View>
+      <Text style={styles.addedDate}>
+        Added: {formatDate(item?.bookId?.createdAt)}
+      </Text>
     </View>
   </TouchableOpacity>
 );
@@ -39,15 +54,19 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 12,
+    flex:1
   },
   title: {
     fontSize: 16,
+    paddingRight: 4,
     flexWrap: "wrap",
   },
   author: {
     fontSize: 14,
     color: "#666",
     marginBottom: 4,
+    paddingRight: 4,
+    flexWrap: "wrap",
   },
   addedDate: {
     fontSize: 12,

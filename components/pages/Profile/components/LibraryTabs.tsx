@@ -19,6 +19,8 @@ import {
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 import ReadBooks from "./ReadBooks";
+import ReadingBooks from "./ReadingBooks";
+import WhisList from "./WishList";
 
 type Props = {};
 
@@ -34,9 +36,9 @@ const LibraryTabs = (props: Props) => {
   const [index, setIndex] = useState(0);
 
   const renderScene = SceneMap({
-    reading: ReadBooks,
+    reading: ReadingBooks,
     read: ReadBooks,
-    wishlist: ReadBooks,
+    wishlist: WhisList,
     posts: ReadBooks,
   });
   const renderTabBar = (props: any) => {

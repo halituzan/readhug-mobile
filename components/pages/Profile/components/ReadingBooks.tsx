@@ -8,14 +8,14 @@ import { selectUser } from "@/store/features/userSlice";
 
 type Props = {};
 
-const ReadBooks = (props: Props) => {
+const ReadingBooks = (props: Props) => {
   const { themeModeColor } = useTheme();
   const [data, setData] = useState<any>({});
   const [page, setPage] = useState(0);
   const user = useSelector(selectUser);
   const getReadBooks = async () => {
     try {
-      const data = await GetUserBooks(page, user.userName, "0");
+      const data = await GetUserBooks(page, user.userName, "1");
       console.log("data", data);
       setData(data);
     } catch (error) {}
@@ -47,7 +47,7 @@ const ReadBooks = (props: Props) => {
   );
 };
 
-export default ReadBooks;
+export default ReadingBooks;
 
 const styles = StyleSheet.create({
   container: {

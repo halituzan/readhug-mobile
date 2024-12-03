@@ -1,5 +1,11 @@
 import Colors from "@/constants/Colors";
 import { useTheme } from "@/hooks/useTheme";
+import {
+  BookMarked,
+  BookOpen,
+  BookPlus,
+  MessageCircle,
+} from "lucide-react-native";
 import React, { useState } from "react";
 import {
   Animated,
@@ -13,34 +19,25 @@ import {
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 import ReadBooks from "./ReadBooks";
-import {
-  BookMarked,
-  BookOpen,
-  BookPlus,
-  MessageCircle,
-} from "lucide-react-native";
 
 type Props = {};
 
 const routes = [
-  { key: "reading", title: "Okunuyor", icon: "📖" },
-  { key: "read", title: "Okunan", icon: "✔️" },
-  { key: "wishlist", title: "İstek Listesi", icon: "⭐" },
-  { key: "posts", title: "Gönderiler", icon: "✏️" },
+  { key: "reading", title: "Okunuyor" },
+  { key: "read", title: "Okunan" },
+  { key: "wishlist", title: "İstek Listesi" },
+  { key: "posts", title: "Gönderiler" },
 ];
 const LibraryTabs = (props: Props) => {
   const { themeModeColor } = useTheme();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
-  const SecondRoute = () => (
-    <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
-  );
   const renderScene = SceneMap({
     reading: ReadBooks,
     read: ReadBooks,
     wishlist: ReadBooks,
-    posts: SecondRoute,
+    posts: ReadBooks,
   });
   const renderTabBar = (props: any) => {
     const inputRange = props.navigationState.routes.map((x: any, i: any) => i);
@@ -72,53 +69,101 @@ const LibraryTabs = (props: Props) => {
                     ? Colors.colors.primary
                     : themeModeColor(500),
                   borderBottomWidth: 2,
-                //   borderTopColor: isActive
-                //     ? Colors.colors.primary
-                //     : themeModeColor(500),
-                //   borderTopWidth: 2,
+                  //   borderTopColor: isActive
+                  //     ? Colors.colors.primary
+                  //     : themeModeColor(500),
+                  //   borderTopWidth: 2,
                 },
               ]}
               onPress={() => setIndex(i)}
             >
               <View style={{ marginBottom: 2 }}>
                 {route.key === "reading" && (
-                  <BookOpen
-                    size={16}
-                    color={
-                      isActive ? Colors.colors.primary : themeModeColor(50)
-                    }
-                  />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <BookOpen
+                      size={16}
+                      color={
+                        isActive ? Colors.colors.primary : themeModeColor(50)
+                      }
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 4,
+                        color: isActive
+                          ? Colors.colors.primary
+                          : themeModeColor(50),
+                      }}
+                    >
+                      127
+                    </Text>
+                  </View>
                 )}
                 {route.key === "read" && (
-                  <BookMarked
-                    size={16}
-                    color={
-                      isActive ? Colors.colors.primary : themeModeColor(50)
-                    }
-                  />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <BookMarked
+                      size={16}
+                      color={
+                        isActive ? Colors.colors.primary : themeModeColor(50)
+                      }
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 4,
+                        color: isActive
+                          ? Colors.colors.primary
+                          : themeModeColor(50),
+                      }}
+                    >
+                      25
+                    </Text>
+                  </View>
                 )}
                 {route.key === "wishlist" && (
-                  <BookPlus
-                    size={16}
-                    color={
-                      isActive ? Colors.colors.primary : themeModeColor(50)
-                    }
-                  />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <BookPlus
+                      size={16}
+                      color={
+                        isActive ? Colors.colors.primary : themeModeColor(50)
+                      }
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 4,
+                        color: isActive
+                          ? Colors.colors.primary
+                          : themeModeColor(50),
+                      }}
+                    >
+                      39
+                    </Text>
+                  </View>
                 )}
                 {route.key === "posts" && (
-                  <MessageCircle
-                    size={16}
-                    color={
-                      isActive ? Colors.colors.primary : themeModeColor(50)
-                    }
-                  />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <MessageCircle
+                      size={16}
+                      color={
+                        isActive ? Colors.colors.primary : themeModeColor(50)
+                      }
+                    />
+                    <Text
+                      style={{
+                        marginLeft: 4,
+                        color: isActive
+                          ? Colors.colors.primary
+                          : themeModeColor(50),
+                      }}
+                    >
+                      10258
+                    </Text>
+                  </View>
                 )}
               </View>
               <Animated.Text
                 style={{
                   opacity,
                   color: isActive ? Colors.colors.primary : themeModeColor(50),
-                  fontSize: 10,
+                  fontSize: 11,
                 }}
               >
                 {route.title}

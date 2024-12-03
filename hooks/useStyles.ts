@@ -430,8 +430,8 @@ export const useStyles = () => {
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "flex-start",
-        borderBottomWidth: 1,
-        borderBottomColor: themeModeColor(500),
+        // borderBottomWidth: 1,
+        // borderBottomColor: themeModeColor(500),
         width: "100%",
         paddingBottom: 8,
       },
@@ -445,7 +445,7 @@ export const useStyles = () => {
       },
       name: {
         fontSize,
-        fontWeight: "bold",
+        fontWeight: "500",
         color: themeModeColor(50),
       },
       info: {
@@ -455,14 +455,11 @@ export const useStyles = () => {
         marginTop: 8,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: themeModeColor(500),
         marginRight: 8,
-        padding: 8,
-        borderRadius: 8,
       },
       infoText: {
         fontSize,
-        color: themeModeColor(950),
+        color: themeModeColor(100),
       },
     });
   };

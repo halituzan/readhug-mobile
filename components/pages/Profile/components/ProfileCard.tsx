@@ -1,11 +1,9 @@
 import Card from "@/components/ui/Card";
-import Colors from "@/constants/Colors";
 import { useStyles } from "@/hooks/useStyles";
 import { useTheme } from "@/hooks/useTheme";
 import { selectUser } from "@/store/features/userSlice";
-import { UserPlus, Users } from "lucide-react-native";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 type Props = {};
@@ -23,6 +21,7 @@ const ProfileCard = (props: Props) => {
         marginBottom: 0,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        backgroundColor: themeModeColor(950),
       }}
     >
       <View style={style.container}>
@@ -39,8 +38,8 @@ const ProfileCard = (props: Props) => {
             <Text style={profileStyle({ fontSize: 18 }).name}>
               {user.firstName + " " + user.lastName}
             </Text>
-            <Text style={profileStyle({ fontSize: 18 }).name}>
-              @{user.userName}
+            <Text style={profileStyle({ fontSize: 16 }).name}>
+              {user.userName}
             </Text>
           </View>
         </View>

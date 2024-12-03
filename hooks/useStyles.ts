@@ -369,7 +369,6 @@ export const useStyles = () => {
     return StyleSheet.create({
       container: {
         flex: 1,
-        padding: 15,
         width,
       },
 
@@ -421,10 +420,57 @@ export const useStyles = () => {
       },
     });
   };
+  const profileStyle = ({ fontSize = 16 }: StyleProps) => {
+    return StyleSheet.create({
+      container: {
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+      },
+      header: {
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        borderBottomWidth: 1,
+        borderBottomColor: themeModeColor(500),
+        width: "100%",
+        paddingBottom: 8,
+      },
+      profileImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+      },
+      userName: {
+        marginLeft: 10,
+      },
+      name: {
+        fontSize,
+        fontWeight: "bold",
+        color: themeModeColor(50),
+      },
+      info: {
+        flexDirection: "row",
+      },
+      infoItem: {
+        marginTop: 8,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: themeModeColor(500),
+        marginRight: 8,
+        padding: 8,
+        borderRadius: 8,
+      },
+      infoText: {
+        fontSize,
+        color: themeModeColor(950),
+      },
+    });
+  };
 
   return {
     styles,
     settingsStyles,
     pageStyle,
+    profileStyle,
   };
 };

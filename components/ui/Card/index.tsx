@@ -5,13 +5,14 @@ import { useStyles } from "@/hooks/useStyles";
 type Props = {
   children: React.ReactNode;
   cardTitle?: string;
+  styles?: any;
 };
 
-const Card = ({ children, cardTitle }: Props) => {
+const Card = ({ children, cardTitle, styles }: Props) => {
   const { styles: appStyle } = useStyles();
   const style = appStyle({});
   return (
-    <View style={style.card}>
+    <View style={[style.card, { ...styles }]}>
       {cardTitle && (
         <Text style={appStyle({ fontSize: 18 }).cardTitle}>{cardTitle}</Text>
       )}

@@ -19,6 +19,13 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import ReadBooks from "./ReadBooks";
 import ReadingBooks from "./ReadingBooks";
 import WhisList from "./WishList";
+import { useSelector } from "react-redux";
+import {
+  selectPosts,
+  selectRead,
+  selectReading,
+  selectWishlist,
+} from "@/store/features/librarySlice";
 
 type Props = {};
 
@@ -29,10 +36,15 @@ const routes = [
   { key: "posts", title: "Gönderiler" },
 ];
 const LibraryTabs = (props: Props) => {
+  const reading = useSelector(selectReading);
+  const read = useSelector(selectRead);
+  const wishlist = useSelector(selectWishlist);
+  const posts = useSelector(selectPosts);
   const { themeModeColor } = useTheme();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const { profileStyle } = useStyles();
+
   const style = profileStyle({});
 
   const renderScene = SceneMap({
@@ -74,7 +86,7 @@ const LibraryTabs = (props: Props) => {
                         profileStyle({ isOk: isActive }).libraryTabItemText
                       }
                     >
-                      127
+                      {reading.total}
                     </Text>
                   </View>
                 )}
@@ -91,7 +103,7 @@ const LibraryTabs = (props: Props) => {
                         profileStyle({ isOk: isActive }).libraryTabItemText
                       }
                     >
-                      25
+                      {read.total}
                     </Text>
                   </View>
                 )}
@@ -108,7 +120,7 @@ const LibraryTabs = (props: Props) => {
                         profileStyle({ isOk: isActive }).libraryTabItemText
                       }
                     >
-                      39
+                      {wishlist.total}
                     </Text>
                   </View>
                 )}
@@ -125,7 +137,7 @@ const LibraryTabs = (props: Props) => {
                         profileStyle({ isOk: isActive }).libraryTabItemText
                       }
                     >
-                      10258
+                      {posts.total}
                     </Text>
                   </View>
                 )}

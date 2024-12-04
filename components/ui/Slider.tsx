@@ -66,7 +66,7 @@ const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
         bookId,
         currentValue === pageCount ? "0" : "1"
       );
-      await mount(1);
+      await mount();
 
       setLoading(false);
     } catch (error) {

@@ -4,16 +4,19 @@ import { GetUserBooks } from "@/services/book/getUserBooks";
 import { selectUser } from "@/store/features/userSlice";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookItem from "./BookItem";
+import { selectWishlist, setLibrary } from "@/store/features/librarySlice";
 
 type Props = {};
 
 const WhisList = (props: Props) => {
-  const [data, setData] = useState<any[]>([]); 
+  const dispatch = useDispatch();
+  const wishlistData = useSelector(selectWishlist);
+  const [data, setData] = useState<any[]>([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false); 
-  const [hasMore, setHasMore] = useState(true); 
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const user = useSelector(selectUser);
   const { profileStyle } = useStyles();
   const style = profileStyle({});
@@ -23,10 +26,15 @@ const WhisList = (props: Props) => {
     try {
       setLoading(true);
       const response = await GetUserBooks(page, user.userName, "2");
+      const payload = {
+        ...response,
+        data: [...wishlistData.data, ...response.data],
+      };
+
       if (response.data.length === 0) {
         setHasMore(false);
       } else {
-        setData((prevData) => [...prevData, ...response.data]);
+        dispatch(setLibrary({ key: "wishlist", data: payload }));
         setPage(page);
       }
       setLoading(false);
@@ -45,6 +53,9 @@ const WhisList = (props: Props) => {
       getWishListBooks(page + 1);
     }
   };
+  useEffect(() => {
+    setData(wishlistData.data);
+  }, [wishlistData]);
 
   return (
     <View style={style.bookContainer}>

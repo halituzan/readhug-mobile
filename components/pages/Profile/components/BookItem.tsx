@@ -13,7 +13,6 @@ const BookItem = ({
   type: "wishlist" | "reading" | "read";
   mount: any;
 }) => {
-
   const { profileStyle } = useStyles();
   const style = profileStyle({});
   return (

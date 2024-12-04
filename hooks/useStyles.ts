@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { Dimensions, Platform, StatusBar, StyleSheet } from "react-native";
 import { useTheme } from "./useTheme";
 import { ColorsTypes, OpacityTypes } from "@/constants/types";
 import { GlobalStyles, width } from "@/constants/Theme";
@@ -15,6 +15,9 @@ interface StyleProps {
   isOk?: boolean;
   fontSize?: number;
   show?: boolean;
+  opacity?: number;
+  height?: number;
+  width?: number;
 }
 export const useStyles = () => {
   const { themeModeColor } = useTheme();
@@ -29,6 +32,7 @@ export const useStyles = () => {
     isDanger,
     isOk,
     fontSize = 16,
+    height = 48,
   }: StyleProps) => {
     return StyleSheet.create({
       container: {
@@ -61,7 +65,7 @@ export const useStyles = () => {
         ...GlobalStyles.flexFullCenter,
         padding: 10,
         borderRadius: 10,
-        height: 48,
+        maxHeight: height,
         backgroundColor: isDanger
           ? Colors.colors.danger
           : isDisable
@@ -420,7 +424,7 @@ export const useStyles = () => {
       },
     });
   };
-  const profileStyle = ({ fontSize = 16 }: StyleProps) => {
+  const profileStyle = ({ fontSize = 16, isOk, opacity }: StyleProps) => {
     return StyleSheet.create({
       container: {
         justifyContent: "flex-start",
@@ -460,6 +464,127 @@ export const useStyles = () => {
       infoText: {
         fontSize,
         color: themeModeColor(100),
+      },
+
+      //? Library
+      bookContainer: {
+        flex: 1,
+        backgroundColor: themeModeColor(900),
+      },
+      bookItemContainer: {
+        flex: 1,
+        backgroundColor: themeModeColor(700),
+        borderRadius: 8,
+        elevation: 2,
+        shadowColor: themeModeColor(50),
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        marginVertical: 8,
+        marginHorizontal: 8,
+        overflow: "hidden",
+        flexDirection: "row",
+      },
+      bookItemImage: {
+        width: 100,
+        height: "100%",
+        resizeMode: "cover",
+      },
+      bookTextContainer: {
+        padding: 12,
+        flex: 1,
+      },
+      bookTitle: {
+        fontSize,
+        paddingRight: 4,
+        flexWrap: "wrap",
+        color: themeModeColor(50),
+      },
+      bookAuthor: {
+        fontSize,
+        color: themeModeColor(200),
+        marginVertical: 4,
+        paddingRight: 4,
+        flexWrap: "wrap",
+      },
+      bookDate: {
+        fontSize,
+        color: themeModeColor(200),
+      },
+      //? Library > Tabs
+      libraryTabView: {
+        flex: 1,
+        minHeight: Dimensions.get("window").height,
+        paddingBottom: 30,
+      },
+      libraryTabsProvider: {
+        flexDirection: "row",
+        alignItems: "center",
+      },
+      libraryTabBar: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        // paddingTop: StatusBar.currentHeight,
+        backgroundColor: themeModeColor(800),
+      },
+      libraryTabItemProvider: {
+        flex: 1,
+        alignItems: "center",
+        padding: 8,
+        borderBottomColor: isOk ? Colors.colors.primary : themeModeColor(500),
+        borderBottomWidth: 2,
+      },
+      libraryTabItemText: {
+        marginLeft: 4,
+        color: isOk ? Colors.colors.primary : themeModeColor(50),
+      },
+      libraryTabItemAnimatedText: {
+        opacity,
+        color: isOk ? Colors.colors.primary : themeModeColor(50),
+        fontSize,
+      },
+
+      //? Library > Slider
+
+      sliderDetails: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "stretch",
+        height:50,
+      },
+      sliderContainer: {
+        flex: 1,
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        flexDirection: "row",
+      },
+      sliderTrack: {
+        marginTop: 14,
+        height: 4,
+        backgroundColor: themeModeColor(500),
+        borderRadius: 2,
+        overflow: "hidden",
+        width: Dimensions.get("window").width - 200,
+      },
+      sliderProgress: {
+        height: 4,
+        backgroundColor: Colors.colors.primary,
+      },
+      sliderThumb: {
+        width: 24,
+        height: 24,
+        borderRadius: 8,
+        backgroundColor: Colors.colors.primary,
+        position: "absolute",
+        top: 3,
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+      },
+      sliderPageCount: {
+        fontSize: 14,
+        color: themeModeColor(300),
       },
     });
   };

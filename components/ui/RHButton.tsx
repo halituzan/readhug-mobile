@@ -10,6 +10,8 @@ type Props = {
   onPress: () => void;
   isDanger?: boolean;
   icon?: React.ReactNode;
+  height?: number;
+  width?: number;
 };
 
 const RHButton = ({
@@ -19,12 +21,14 @@ const RHButton = ({
   isDisable = false,
   isDanger = false,
   icon,
+  height,
+  width,
 }: Props) => {
   const { styles: appStyle } = useStyles();
   const style = appStyle({});
   return (
     <TouchableOpacity
-      style={appStyle({ isDisable, isDanger }).button}
+      style={appStyle({ isDisable, isDanger, width, height }).button}
       onPress={onPress}
       disabled={isDisable || loading}
     >
@@ -40,7 +44,9 @@ const RHButton = ({
           }}
         >
           {icon && icon}
-          <Text style={appStyle({ isDisable, isDanger }).buttonText}>{text}</Text>
+          <Text style={appStyle({ isDisable, isDanger }).buttonText}>
+            {text}
+          </Text>
         </View>
       )}
     </TouchableOpacity>

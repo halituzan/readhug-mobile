@@ -1,4 +1,5 @@
 import Colors from "@/constants/Colors";
+import { useStyles } from "@/hooks/useStyles";
 import { useTheme } from "@/hooks/useTheme";
 import {
   BookMarked,
@@ -9,9 +10,6 @@ import {
 import React, { useState } from "react";
 import {
   Animated,
-  Dimensions,
-  StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   useWindowDimensions,
@@ -21,6 +19,14 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import ReadBooks from "./ReadBooks";
 import ReadingBooks from "./ReadingBooks";
 import WhisList from "./WishList";
+import { useSelector } from "react-redux";
+import {
+  selectPosts,
+  selectRead,
+  selectReading,
+  selectWishlist,
+} from "@/store/features/librarySlice";
+import ProfilePosts from "./ProfilePosts";
 
 type Props = {};
 
@@ -31,28 +37,28 @@ const routes = [
   { key: "posts", title: "Gönderiler" },
 ];
 const LibraryTabs = (props: Props) => {
+  const reading = useSelector(selectReading);
+  const read = useSelector(selectRead);
+  const wishlist = useSelector(selectWishlist);
+  const posts = useSelector(selectPosts);
   const { themeModeColor } = useTheme();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
+  const { profileStyle } = useStyles();
+
+  const style = profileStyle({});
 
   const renderScene = SceneMap({
     reading: ReadingBooks,
     read: ReadBooks,
     wishlist: WhisList,
-    posts: ReadBooks,
+    posts: ProfilePosts,
   });
   const renderTabBar = (props: any) => {
     const inputRange = props.navigationState.routes.map((x: any, i: any) => i);
 
     return (
-      <View
-        style={[
-          styles.tabBar,
-          {
-            backgroundColor: themeModeColor(800),
-          },
-        ]}
-      >
+      <View style={style.libraryTabBar}>
         {props.navigationState.routes.map((route: any, i: any) => {
           const opacity = props.position.interpolate({
             inputRange,
@@ -64,24 +70,12 @@ const LibraryTabs = (props: Props) => {
           return (
             <TouchableOpacity
               key={i}
-              style={[
-                styles.tabItem,
-                {
-                  borderBottomColor: isActive
-                    ? Colors.colors.primary
-                    : themeModeColor(500),
-                  borderBottomWidth: 2,
-                  //   borderTopColor: isActive
-                  //     ? Colors.colors.primary
-                  //     : themeModeColor(500),
-                  //   borderTopWidth: 2,
-                },
-              ]}
+              style={profileStyle({ isOk: isActive }).libraryTabItemProvider}
               onPress={() => setIndex(i)}
             >
               <View style={{ marginBottom: 2 }}>
                 {route.key === "reading" && (
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={style.libraryTabsProvider}>
                     <BookOpen
                       size={16}
                       color={
@@ -89,19 +83,16 @@ const LibraryTabs = (props: Props) => {
                       }
                     />
                     <Text
-                      style={{
-                        marginLeft: 4,
-                        color: isActive
-                          ? Colors.colors.primary
-                          : themeModeColor(50),
-                      }}
+                      style={
+                        profileStyle({ isOk: isActive }).libraryTabItemText
+                      }
                     >
-                      127
+                      {reading.total}
                     </Text>
                   </View>
                 )}
                 {route.key === "read" && (
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={style.libraryTabsProvider}>
                     <BookMarked
                       size={16}
                       color={
@@ -109,19 +100,16 @@ const LibraryTabs = (props: Props) => {
                       }
                     />
                     <Text
-                      style={{
-                        marginLeft: 4,
-                        color: isActive
-                          ? Colors.colors.primary
-                          : themeModeColor(50),
-                      }}
+                      style={
+                        profileStyle({ isOk: isActive }).libraryTabItemText
+                      }
                     >
-                      25
+                      {read.total}
                     </Text>
                   </View>
                 )}
                 {route.key === "wishlist" && (
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={style.libraryTabsProvider}>
                     <BookPlus
                       size={16}
                       color={
@@ -129,19 +117,16 @@ const LibraryTabs = (props: Props) => {
                       }
                     />
                     <Text
-                      style={{
-                        marginLeft: 4,
-                        color: isActive
-                          ? Colors.colors.primary
-                          : themeModeColor(50),
-                      }}
+                      style={
+                        profileStyle({ isOk: isActive }).libraryTabItemText
+                      }
                     >
-                      39
+                      {wishlist.total}
                     </Text>
                   </View>
                 )}
                 {route.key === "posts" && (
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={style.libraryTabsProvider}>
                     <MessageCircle
                       size={16}
                       color={
@@ -149,24 +134,20 @@ const LibraryTabs = (props: Props) => {
                       }
                     />
                     <Text
-                      style={{
-                        marginLeft: 4,
-                        color: isActive
-                          ? Colors.colors.primary
-                          : themeModeColor(50),
-                      }}
+                      style={
+                        profileStyle({ isOk: isActive }).libraryTabItemText
+                      }
                     >
-                      10258
+                      {posts.total}
                     </Text>
                   </View>
                 )}
               </View>
               <Animated.Text
-                style={{
-                  opacity,
-                  color: isActive ? Colors.colors.primary : themeModeColor(50),
-                  fontSize: 11,
-                }}
+                style={
+                  profileStyle({ isOk: isActive, opacity, fontSize: 11 })
+                    .libraryTabItemAnimatedText
+                }
               >
                 {route.title}
               </Animated.Text>
@@ -177,13 +158,7 @@ const LibraryTabs = (props: Props) => {
     );
   };
   return (
-    <View
-      style={{
-        flex: 1,
-        minHeight: Dimensions.get("window").height,
-        paddingBottom: 30,
-      }}
-    >
+    <View style={style.libraryTabView}>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -196,21 +171,3 @@ const LibraryTabs = (props: Props) => {
 };
 
 export default LibraryTabs;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabBar: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight,
-    backgroundColor: "red",
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: "center",
-    padding: 8,
-  },
-});

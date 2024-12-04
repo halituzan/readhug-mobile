@@ -26,6 +26,7 @@ import {
   selectReading,
   selectWishlist,
 } from "@/store/features/librarySlice";
+import ProfilePosts from "./ProfilePosts";
 
 type Props = {};
 
@@ -51,7 +52,7 @@ const LibraryTabs = (props: Props) => {
     reading: ReadingBooks,
     read: ReadBooks,
     wishlist: WhisList,
-    posts: ReadBooks,
+    posts: ProfilePosts,
   });
   const renderTabBar = (props: any) => {
     const inputRange = props.navigationState.routes.map((x: any, i: any) => i);

@@ -469,7 +469,7 @@ export const useStyles = () => {
       //? Library
       bookContainer: {
         flex: 1,
-        backgroundColor: themeModeColor(800),
+        backgroundColor: themeModeColor(900),
       },
       bookItemContainer: {
         flex: 1,

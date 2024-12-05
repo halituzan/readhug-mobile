@@ -16,8 +16,8 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPosts = async () => {
-    const newPosts = await GetAllBooks(page);
-    console.log("newPosts", newPosts);
+    setPage(1);
+    const newPosts = await GetAllBooks(1);
 
     setPosts(newPosts.data);
     setPage((prev) => prev + 1);

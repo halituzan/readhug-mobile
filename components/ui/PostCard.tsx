@@ -11,12 +11,13 @@ import CardFooter from "./Card/CardFooter";
 import CardHeader from "./Card/CardHeader";
 import Comment from "./Icons/Comment";
 import Heart from "./Icons/Heart";
+import { useTheme } from "@/hooks/useTheme";
 
 const Post = ({ post, isFull = false }: any) => {
   const { styles: appStyle } = useStyles();
   const style = appStyle({});
-  const [openMessage, setOpenMessage] = useState<string | null>(null);
-
+  const [showPostMore, seShowPostMore] = useState<boolean>(false);
+  const { themeModeColor } = useTheme();
   return (
     <View>
       <Card>
@@ -48,16 +49,29 @@ const Post = ({ post, isFull = false }: any) => {
           </View>
         </CardHeader>
         <CardContent>
-          <View>
+          <View style={{ position: "relative" }}>
             <Link
-              style={style.cardContentText}
+              style={[style.cardContentText]}
               href={{
                 pathname: "/post/[id]",
                 params: { id: post?._id, userName: post?.user?.userName },
               }}
             >
-              {post?.content}
+              {post?.content?.length > 500 && !showPostMore
+                ? post.content.slice(0, 497) + "..."
+                : post?.content}
             </Link>
+            <Pressable
+              onPress={() => seShowPostMore(!showPostMore)}
+              style={{ position: "absolute", bottom: -12, right: 0 }}
+            >
+              {post?.content?.length > 500 &&
+                (showPostMore ? (
+                  <Text style={{ color: themeModeColor(300) }}>Daralt</Text>
+                ) : (
+                  <Text style={{ color: themeModeColor(300) }}>Tümünü gör</Text>
+                ))}
+            </Pressable>
           </View>
         </CardContent>
         <CardFooter>
@@ -102,9 +116,15 @@ const Post = ({ post, isFull = false }: any) => {
             </View>
           </View>
 
-          <Text style={appStyle({ fontSize: 12 }).cardFooterDate}>
-            {formatDate(post?.createdAt)}
-          </Text>
+          <Link
+            href={{
+              pathname: "/post/[id]",
+              params: { id: post?._id, userName: post?.user?.userName },
+            }}
+            style={appStyle({ fontSize: 12 }).cardFooterDate}
+          >
+            {formatDate(post?.createdAt, "dateTime")}
+          </Link>
         </CardFooter>
       </Card>
     </View>

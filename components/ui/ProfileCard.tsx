@@ -8,6 +8,7 @@ import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Comment from "./Icons/Comment";
 import Heart from "./Icons/Heart";
 import { ArrowDown, ChevronDown, ChevronUp } from "lucide-react-native";
+import { formatDate } from "@/lib/formatDate";
 
 type Props = { userName: string; post: any };
 
@@ -150,30 +151,35 @@ const ProfileCard = ({ userName, post }: Props) => {
               {post?.commentCount}
             </Text>
           </Pressable>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              flex: 1,
-              width: "100%",
-            }}
-          >
-            <Pressable
+          <Text style={styles({ fontSize: 12 }).cardFooterDate}>
+            {formatDate(post?.createdAt,"dateTime")}
+          </Text>
+          {post?.content?.length > 503 && (
+            <View
               style={{
-                backgroundColor: Colors.colors.primary,
-                borderRadius: 4,
-                width: 16,
-                marginRight: 10,
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                flex: 1,
+                width: "100%",
               }}
-              onPress={() => setShowContent(!showContent)}
             >
-              {showContent ? (
-                <ChevronUp size={16} color={"white"} />
-              ) : (
-                <ChevronDown size={16} color={"white"} />
-              )}
-            </Pressable>
-          </View>
+              <Pressable
+                style={{
+                  backgroundColor: Colors.colors.primary,
+                  borderRadius: 4,
+                  width: 16,
+                  marginRight: 10,
+                }}
+                onPress={() => setShowContent(!showContent)}
+              >
+                {showContent ? (
+                  <ChevronUp size={16} color={"white"} />
+                ) : (
+                  <ChevronDown size={16} color={"white"} />
+                )}
+              </Pressable>
+            </View>
+          )}
         </View>
       </View>
       <View>

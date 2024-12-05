@@ -52,7 +52,7 @@ const ReadingBooks = ({ setCount, count }: Props) => {
     getReadBooks();
   }, []);
   useEffect(() => {
-    setData(readingData.data);
+    setData(readingData?.data ?? []);
   }, [readingData]);
 
   const handLoadMore = async () => {

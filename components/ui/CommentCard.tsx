@@ -1,8 +1,8 @@
+import Colors from "@/constants/Colors";
+import { useTheme } from "@/hooks/useTheme";
+import { formatDate } from "@/lib/formatDate";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { formatDate } from "@/lib/formatDate";
-import { useTheme } from "@/hooks/useTheme";
-import Colors from "@/constants/Colors";
 
 type Props = { comment: any };
 
@@ -101,9 +101,7 @@ const styles = StyleSheet.create({
 
   content: {
     fontSize: 16,
-    marginBottom: 12,
     paddingHorizontal: 8,
-    width: "100%",
     paddingVertical: 12,
     flexWrap: "wrap",
     flex: 1,

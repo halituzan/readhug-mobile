@@ -25,7 +25,6 @@ const RHButton = ({
   width,
 }: Props) => {
   const { styles: appStyle } = useStyles();
-  const style = appStyle({});
   return (
     <TouchableOpacity
       style={appStyle({ isDisable, isDanger, width, height }).button}

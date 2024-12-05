@@ -1,18 +1,15 @@
+import { useStyles } from "@/hooks/useStyles";
+import { useTheme } from "@/hooks/useTheme";
+import React from "react";
 import {
   KeyboardType,
   KeyboardTypeAndroid,
   KeyboardTypeIOS,
-  StyleSheet,
   Text,
   TextInput,
   TextInputProps,
-  View,
-  ViewStyle,
+  View
 } from "react-native";
-import React from "react";
-import { useTheme } from "@/hooks/useTheme";
-import Colors from "@/constants/Colors";
-import { useStyles } from "@/hooks/useStyles";
 
 interface RHInputProps extends TextInputProps {
   label?: string;
@@ -29,6 +26,7 @@ const RHInput = ({
   keyboardType,
   ...props
 }: RHInputProps) => {
+  const { themeModeColor } = useTheme();
   const { styles: appStyle } = useStyles();
   const style = appStyle({});
   const inputStyles = style.input;
@@ -44,6 +42,7 @@ const RHInput = ({
         onChangeText={setValue}
         keyboardType={keyboardType}
         style={inputStyles}
+        placeholderTextColor={themeModeColor(500)}
         {...props}
       />
     </View>

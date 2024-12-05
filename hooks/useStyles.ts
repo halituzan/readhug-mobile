@@ -44,7 +44,7 @@ export const useStyles = () => {
       //? Input
       input: {
         backgroundColor: themeModeColor(
-          bgColor && (bgColor >= 0 || bgColor < 951) ? bgColor : 800,
+          bgColor && (bgColor >= 0 || bgColor < 951) ? bgColor : 900,
           bgOpacity && (bgOpacity >= 0 || bgOpacity < 101) ? bgOpacity : 100
         ),
         color: themeModeColor(color ? color : 50, colorOpacity && colorOpacity),
@@ -53,7 +53,6 @@ export const useStyles = () => {
         paddingHorizontal: 8,
         paddingVertical: 16,
         borderRadius: 8,
-        marginBottom: 10,
       },
       label: {
         color: themeModeColor(color ? color : 50),

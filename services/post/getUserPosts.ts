@@ -13,5 +13,14 @@ const GetUserPosts = async (page: number = 1, userName: string) => {
     // Alert.alert(error.response.data.message);
   }
 };
+const GetUserSinglePosts = async (postId: string) => {
+  try {
+    const res = await network.run("GET", `/posts/single/${postId}`, null);
+    return res;
+    // return res;
+  } catch (error: any) {
+    // Alert.alert(error.response.data.message);
+  }
+};
 
-export { GetUserPosts };
+export { GetUserPosts, GetUserSinglePosts };

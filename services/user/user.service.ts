@@ -11,4 +11,13 @@ const GetMyInformation = async () => {
   }
 };
 
-export { GetMyInformation };
+const GetUserProfile = async (userName: string) => {
+  try {
+    const res = await network.run("GET", `user/profile/${userName}`, null);
+    return res;
+  } catch (error) {
+    // Alert.alert(error.response.data.message);
+  }
+};
+
+export { GetMyInformation, GetUserProfile };

@@ -38,8 +38,8 @@ export const useStyles = () => {
     return StyleSheet.create({
       container: {
         flex: 1,
+        width:"100%",
         backgroundColor: themeModeColor(700),
-        width,
       },
       // TODO: UI Components
       //? Input

@@ -4,7 +4,6 @@ import RHBottomSheet from "@/components/ui/RHBottomSheet";
 import { useStyles } from "@/hooks/useStyles";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useCallback, useRef } from "react";
-import { Dimensions, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProfileScreen() {
@@ -31,10 +30,3 @@ export default function ProfileScreen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-    alignItems: "center",
-    minHeight: Dimensions.get("window").height - 100,
-  },
-});

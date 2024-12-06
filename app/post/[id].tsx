@@ -1,20 +1,22 @@
 import CommentCard from "@/components/ui/CommentCard";
-import PostCard from "@/components/ui/PostCard";
 import ProfileCard from "@/components/ui/ProfileCard";
 import RHButton from "@/components/ui/RHButton";
 import RHInput from "@/components/ui/RHInput";
 import Colors from "@/constants/Colors";
-import { GlobalStyles } from "@/constants/Theme";
 import { useStyles } from "@/hooks/useStyles";
 import { useTheme } from "@/hooks/useTheme";
 import { CreateComments, GetComments } from "@/services/post/comments";
 import { GetUserSinglePosts } from "@/services/post/getUserPosts";
 import { selectUser } from "@/store/features/userSlice";
-import { Link, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { Send } from "lucide-react-native";
 import { memo, useEffect, useState } from "react";
-import { ActivityIndicator, Text, View, FlatList } from "react-native";
-import { RefreshControl } from "react-native-gesture-handler";
+import {
+  ActivityIndicator,
+  FlatList,
+  View,
+  RefreshControl,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
@@ -115,7 +117,7 @@ export default function PostScreen() {
             </View>
           </View>
         </View>
-        <View style={{  flex: 1 }}>
+        <View style={{ flex: 1 }}>
           {comments?.total > 0 && (
             <FlatList
               refreshing

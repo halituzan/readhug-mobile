@@ -28,13 +28,13 @@ const CreateBookFromList = async (bookId: string, type: string) => {
 };
 const CreateBookFromThirdParty = async (payload: any) => {
   try {
-    const res = await network.run("POST", `third/google/book/create`, {
+    const res = await network.run("POST", `/third/google/book/create`, {
       ...payload,
     });
     return res;
     // return res;
   } catch (error: any) {
-    // Alert.alert(error.response.data.message);
+    console.log(error);
   }
 };
 

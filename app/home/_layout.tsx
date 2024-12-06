@@ -9,6 +9,7 @@ import { selectUser } from "@/store/features/userSlice";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Image, Platform, Pressable, View, ViewStyle } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 
 export default function TabLayout(props: any) {
@@ -18,99 +19,109 @@ export default function TabLayout(props: any) {
   const user = useSelector(selectUser);
 
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: [
-          tabStyles,
-          {
-            backgroundColor: Colors[theme.mode][900],
-          } as ViewStyle,
-        ],
-        tabBarHideOnKeyboard: true,
-      }}
-    >
-      <Tabs.Screen
-        name='index'
-        options={{
-          title: "Timeline",
-          tabBarShowLabel: false,
-          tabBarItemStyle: {
-            marginBottom: Platform.OS === "android" ? 30 : 0,
-          },
-          tabBarIcon: ({ focused }) => (
-            <TimeLine
-              width={32}
-              height={32}
-              color={focused ? Colors.colors.primary : Colors.colors.secondary}
-            />
-          ),
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: [
+            tabStyles,
+            {
+              backgroundColor: Colors[theme.mode][900],
+            } as ViewStyle,
+          ],
+          tabBarHideOnKeyboard: true,
         }}
-      />
-      <Tabs.Screen
-        name='books'
-        options={{
-          title: "Books",
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <BookIcon
-              width={32}
-              height={32}
-              color={focused ? Colors.colors.primary : Colors.colors.secondary}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name='profile'
-        options={{
-          title: "Profile",
-          tabBarShowLabel: false,
-          tabBarButton: ({ onPress, focused }: any) => (
-            <View style={style.profileBar}>
-              <ProfileBarButton onPress={onPress}>
-                <Image
-                  source={
-                    user.image
-                      ? { uri: user.image }
-                      : require("../../assets/placeholder/books/book1.jpg")
-                  }
-                  style={style.profileBarImage}
-                />
-              </ProfileBarButton>
-            </View>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name='notifications'
-        options={{
-          title: "Notifications",
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <NotificationIcon
-              width={32}
-              height={32}
-              color={focused ? Colors.colors.primary : Colors.colors.secondary}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name='settings'
-        options={{
-          title: "Settings",
-          tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) => (
-            <Settings
-              width={32}
-              height={32}
-              color={focused ? Colors.colors.primary : Colors.colors.secondary}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name='index'
+          options={{
+            title: "Timeline",
+            tabBarShowLabel: false,
+            tabBarItemStyle: {
+              marginBottom: Platform.OS === "android" ? 30 : 0,
+            },
+            tabBarIcon: ({ focused }) => (
+              <TimeLine
+                width={32}
+                height={32}
+                color={
+                  focused ? Colors.colors.primary : Colors.colors.secondary
+                }
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='books'
+          options={{
+            title: "Books",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <BookIcon
+                width={32}
+                height={32}
+                color={
+                  focused ? Colors.colors.primary : Colors.colors.secondary
+                }
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='profile'
+          options={{
+            title: "Profile",
+            tabBarShowLabel: false,
+            tabBarButton: ({ onPress, focused }: any) => (
+              <View style={style.profileBar}>
+                <ProfileBarButton onPress={onPress}>
+                  <Image
+                    source={
+                      user.image
+                        ? { uri: user.image }
+                        : require("../../assets/placeholder/books/book1.jpg")
+                    }
+                    style={style.profileBarImage}
+                  />
+                </ProfileBarButton>
+              </View>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='notifications'
+          options={{
+            title: "Notifications",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <NotificationIcon
+                width={32}
+                height={32}
+                color={
+                  focused ? Colors.colors.primary : Colors.colors.secondary
+                }
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='settings'
+          options={{
+            title: "Settings",
+            tabBarShowLabel: false,
+            tabBarIcon: ({ focused }) => (
+              <Settings
+                width={32}
+                height={32}
+                color={
+                  focused ? Colors.colors.primary : Colors.colors.secondary
+                }
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </GestureHandlerRootView>
   );
 }
 

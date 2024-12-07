@@ -33,12 +33,13 @@ export const useStyles = () => {
     isOk,
     fontSize = 16,
     height = 48,
+    width = 48,
   }: StyleProps) => {
     return StyleSheet.create({
       container: {
         flex: 1,
+        width:"100%",
         backgroundColor: themeModeColor(700),
-        width,
       },
       // TODO: UI Components
       //? Input
@@ -65,6 +66,7 @@ export const useStyles = () => {
         padding: 10,
         borderRadius: 10,
         maxHeight: height,
+        minWidth: width,
         backgroundColor: isDanger
           ? Colors.colors.danger
           : isDisable
@@ -550,7 +552,7 @@ export const useStyles = () => {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "stretch",
-        height:50,
+        height: 50,
       },
       sliderContainer: {
         flex: 1,

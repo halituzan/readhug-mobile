@@ -3,15 +3,17 @@ import React from "react";
 import { View } from "react-native";
 import LibraryTabs from "./components/LibraryTabs";
 import ProfileCard from "./components/ProfileCard";
-type Props = {};
+type Props = {
+  openModal: any;
+};
 
-const ProfilePage = (props: Props) => {
+const ProfilePage = ({ openModal }: Props) => {
   const { pageStyle } = useStyles();
   const style = pageStyle({});
 
   return (
     <View style={style.container}>
-      <ProfileCard />
+      <ProfileCard openModal={openModal} />
       <LibraryTabs />
     </View>
   );

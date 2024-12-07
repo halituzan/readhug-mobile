@@ -1,5 +1,5 @@
 import { useStyles } from "@/hooks/useStyles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -12,7 +12,16 @@ import RHButton from "./RHButton";
 import { Save } from "lucide-react-native";
 import { updateBookCount } from "@/services/book/updateBook";
 
-const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
+const SliderComponent = ({
+  pageCount,
+  readCount,
+  bookId,
+  bookName,
+  mount,
+  width,
+  isSave = true,
+  handleReadCountChange,
+}: any) => {
   const { profileStyle } = useStyles();
   const style = profileStyle({});
 
@@ -21,12 +30,13 @@ const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
   const readPages = readCount; // Okunan sayfa sayısı
 
   const [currentValue, setCurrentValue] = useState(readPages);
+  const [isChange, setIsChange] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Başlangıç ilerleme oranını hesapla
   const progress = useSharedValue(readPages / totalPages);
 
-  const sliderWidth = 200;
+  const sliderWidth = width ? width : 200;
   const thumbWidth = 24;
   const offset = useSharedValue(0);
 
@@ -46,8 +56,8 @@ const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
       runOnJS(setCurrentValue)(Math.round(newValue * totalPages));
     })
     .onEnd(() => {
-      // Animasyonu tamamla
       progress.value = withSpring(progress.value);
+      runOnJS(setIsChange)(!isChange);
     });
 
   const animatedProgressStyle = useAnimatedStyle(() => ({
@@ -74,10 +84,16 @@ const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
     }
   };
 
+  useEffect(() => {
+    if (readCount !== currentValue && bookName && handleReadCountChange) {
+      handleReadCountChange(bookName, currentValue);
+    }
+  }, [isChange]);
+
   return (
-    <View style={style.sliderDetails}>
+    <View style={[style.sliderDetails]}>
       <View style={style.sliderContainer}>
-        <View style={style.sliderTrack}>
+        <View style={[style.sliderTrack, { width: width ?? 200 }]}>
           <Animated.View
             style={[style.sliderProgress, animatedProgressStyle]}
           />
@@ -87,7 +103,7 @@ const SliderComponent = ({ pageCount, readCount, bookId, mount }: any) => {
             <Text style={{ color: "white", fontSize: 9 }}>{currentValue}</Text>
           </Animated.View>
         </GestureDetector>
-        {currentValue !== readPages && (
+        {currentValue !== readPages && isSave && (
           <View style={{ width: 30, height: 30 }}>
             <RHButton
               text={<Save size={16} color={"white"} />}

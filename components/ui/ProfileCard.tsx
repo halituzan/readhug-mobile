@@ -21,7 +21,6 @@ const ProfileCard = ({ userName, post }: Props) => {
 
   const getUser = async (userName: string) => {
     const data = await GetUserProfile(userName);
-    console.log(data, "data");
     setUser(data);
   };
 

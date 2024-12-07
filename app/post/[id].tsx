@@ -4,7 +4,6 @@ import RHButton from "@/components/ui/RHButton";
 import RHInput from "@/components/ui/RHInput";
 import Colors from "@/constants/Colors";
 import { useStyles } from "@/hooks/useStyles";
-import { useTheme } from "@/hooks/useTheme";
 import { CreateComments, GetComments } from "@/services/post/comments";
 import { GetUserSinglePosts } from "@/services/post/getUserPosts";
 import { selectUser } from "@/store/features/userSlice";
@@ -14,16 +13,14 @@ import { memo, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  View,
   RefreshControl,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
 export default function PostScreen() {
   const { pageStyle } = useStyles();
-
-  const { themeModeColor } = useTheme();
   const user = useSelector(selectUser);
   const style = pageStyle({});
   const { id, userName } = useLocalSearchParams();

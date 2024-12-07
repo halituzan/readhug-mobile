@@ -40,18 +40,25 @@ const Post = ({ post, isFull = false }: any) => {
                   .join(" & ")}
               </Text>
             </View>
-            <View style={{ marginLeft: 5 }}>
+            <Link
+              href={{
+                pathname: "/profile/[userName]",
+                params: { userName: post?.user?.userName as string },
+              }}
+              style={{ marginLeft: 5 }}
+            >
               <Image
                 source={{ uri: post?.user?.image }}
                 style={style.cardUserAvatar}
               />
-            </View>
+            </Link>
           </View>
         </CardHeader>
         <CardContent>
           <View style={{ position: "relative" }}>
             <Link
               style={[style.cardContentText]}
+              
               href={{
                 pathname: "/post/[id]",
                 params: { id: post?._id, userName: post?.user?.userName },
